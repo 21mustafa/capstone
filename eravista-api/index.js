@@ -1,15 +1,13 @@
-// const express = require("express");
-// const app = express();
-
+import express from "express";
 import { parseTimeline } from "./history-scraper.js";
 
-// app.get("/", function (req, res) {
-//   res.send("Hello World!");
-// });
-// app.listen(8000, function () {
-//   console.log("Example app listening on port 8000!");
-// });
+const app = express();
+app.get("/", function (req, res) {
+  parseTimeline().then((timeline) => {
+    res.send(timeline);
+  });
+});
 
-parseTimeline().then((timeline) => {
-  console.log(timeline);
+app.listen(8000, function () {
+  console.log("App listening on port 8000!");
 });
