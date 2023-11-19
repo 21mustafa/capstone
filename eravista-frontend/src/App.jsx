@@ -19,8 +19,29 @@ function App() {
 
   useEffect(() => {
     environment.current = new Environment();
-    new Text(environment.current.scene, "Era Vista", -40, startingPoint);
-    new Text(environment.current.scene, "Canada", -40, labelSpace);
+    new Text(
+      environment.current.scene,
+      "Era Vista",
+      -40,
+      startingPoint,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      55
+    );
+
+    new Text(
+      environment.current.scene,
+      "Canada",
+      -40,
+      labelSpace,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      55
+    );
 
     void retrieveTimeline();
   }, []);

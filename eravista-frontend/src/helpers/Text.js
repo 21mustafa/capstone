@@ -11,8 +11,10 @@ export class Text {
     verticalPosition,
     depthPosition,
     size,
-    height,
-    leftAlign
+    tickness,
+    leftAlign,
+    leftMargin,
+    height
   ) {
     this.text = text;
     this.loadFont();
@@ -24,8 +26,10 @@ export class Text {
 
     this.size = size;
 
-    this.height = height;
+    this.tickness = tickness;
     this.leftAlign = leftAlign;
+    this.leftMargin = leftMargin;
+    this.height = height;
 
     scene.add(this.group);
   }
@@ -47,19 +51,22 @@ export class Text {
     this.textGeo = new TextGeometry(this.text, {
       font: this.font,
       size: this.size ? this.size : 20,
-      height: this.height ? this.height : 3,
+      height: this.tickness ? this.tickness : 3,
       curveSegments: 10,
     });
 
     this.textGeo.computeBoundingBox();
 
     const centerOffset =
-      -0.5 * (this.textGeo.boundingBox.max.x - this.textGeo.boundingBox.min.x);
+      -0.5 * (this.textGeo.boundingBox.max.x - this.textGeo.boundingBox.min.x) +
+      (this.leftMargin ? this.leftMargin : 0);
 
     this.textMesh1 = new THREE.Mesh(this.textGeo, this.materials);
 
-    this.textMesh1.position.x = this.leftAlign ? -50 : centerOffset;
-    this.textMesh1.position.y = 30;
+    this.textMesh1.position.x = this.leftAlign
+      ? -50 + (this.leftMargin ? this.leftMargin : 0)
+      : centerOffset;
+    this.textMesh1.position.y = this.height ? this.height : 30;
     this.textMesh1.position.z = 0;
 
     this.textMesh1.rotation.x = 0;

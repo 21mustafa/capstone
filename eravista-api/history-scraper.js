@@ -114,9 +114,15 @@ export const parseTimeline = async () => {
     let dateElement;
     let eventElement;
     let refElement;
+    let spanCount;
+
     const events = [];
     for (let tableRow of tableRows) {
       const tableData = tableRow.getElementsByTagName("td");
+      if (tableData.length > 0 && tableData[0].getAttribute("rowspan")) {
+        spanCount = +tableData[0].getAttribute("rowspan");
+      }
+
       if (tableData && tableData.length > 0) {
         if (tableData.length === 4) {
           yearElement = tableData[0];
@@ -124,9 +130,15 @@ export const parseTimeline = async () => {
           eventElement = tableData[2];
           refElement = tableData[3];
         } else {
-          dateElement = tableData[0];
-          eventElement = tableData[1];
-          refElement = tableData[2];
+          if (spanCount > 0) {
+            dateElement = tableData[0];
+            eventElement = tableData[1];
+            refElement = tableData[2];
+          } else {
+            yearElement = tableData[0];
+            dateElement = tableData[1];
+            eventElement = tableData[2];
+          }
         }
 
         const year = removeNewLineIdentifier(yearElement.innerText);
@@ -145,16 +157,48 @@ export const parseTimeline = async () => {
           refs,
         });
       }
+
+      spanCount && (spanCount -= 1);
     }
 
     const centuryLink = centuryLinks.find((element) =>
       element.century.toLowerCase().includes(century.toLowerCase())
     );
 
+    const finalEvents = [];
+    const revertEvents = events.reverse();
+    let prevYear = "-";
+    for (let event of revertEvents) {
+      const obj = finalEvents.find((item) => item.year === event.year);
+
+      if (obj) {
+        finalEvents
+          .find((item) => item.year === event.year)
+          .events.push({
+            description: event.event,
+            refs: event.refs,
+            date: event.date,
+          });
+      } else {
+        const eventObj = {
+          year: event.year ? event.year : `?${event.date}`,
+          events: [
+            {
+              description: event.event,
+              refs: event.refs,
+              date: event.date,
+            },
+          ],
+        };
+        finalEvents.push(eventObj);
+        prevYear = event.year;
+      }
+    }
+
     timeline.push({
       century,
       links: centuryLink?.link,
-      events: events,
+      events: finalEvents,
     });
   }
 

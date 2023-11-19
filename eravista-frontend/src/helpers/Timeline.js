@@ -11,30 +11,46 @@ export class Timeline {
     this.scene = scene;
     this.data = data;
     this.createCenturies();
-    console.log("Done");
   }
 
   createCenturies = () => {
-    let i = 1;
     let centurySpace = labelSpace - 750;
-    let currentYear = 2023;
-    const year = 100;
-    for (let centuryData of this.data) {
-      new Text(this.scene, centuryData.century, -40, centurySpace);
 
+    let latest = true;
+    for (let centuryData of this.data) {
+      new Text(
+        this.scene,
+        centuryData.century,
+        -40,
+        centurySpace,
+        50,
+        10,
+        undefined,
+        undefined,
+        55
+      );
       centurySpace -= 250;
 
-      while (!(currentYear % year === 0)) {
-        new Text(this.scene, "" + currentYear, -48, centurySpace, 5, 1, true);
-        currentYear -= 1;
+      if (latest) {
+        new Text(this.scene, "2023", -48, centurySpace, 5, 1, true);
+        centurySpace -= 100;
+        latest = false;
+      }
+
+      for (let event of centuryData.events) {
+        new Text(
+          this.scene,
+          event.year.includes("?") ? "-" : event.year,
+          -48,
+          centurySpace,
+          5,
+          1,
+          true
+        );
+
         centurySpace -= 100;
       }
 
-      if (currentYear % year === 0) {
-        new Text(this.scene, "" + currentYear, -48, centurySpace, 5, 1, true);
-        currentYear -= 1;
-        centurySpace -= 100;
-      }
       centurySpace -= 150;
     }
   };
