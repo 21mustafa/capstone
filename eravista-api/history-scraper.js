@@ -157,5 +157,6 @@ export const parseTimeline = async () => {
       events: events,
     });
   }
-  return timeline;
+
+  return timeline.reverse();
 };
