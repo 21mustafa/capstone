@@ -9,11 +9,7 @@ export class Environment {
   constructor() {
     this.createRenderer();
     // scene
-    // E8DDD6
     this.scene = new THREE.Scene();
-    // this.scene.background = new THREE.Color("#394867");
-    // this.scene.background = new THREE.Color("#333333");
-    // E3D5C3
     this.scene.background = new THREE.Color("#F4F4F4");
 
     this.createCamera();
@@ -60,7 +56,7 @@ export class Environment {
       1,
       visiualDepth
     );
-    this.camera.position.set(0, 0, pathLength);
+    // this.camera.position.set(0, 0, pathLength);
   };
 
   createRenderer = () => {

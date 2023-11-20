@@ -60,6 +60,18 @@ function App() {
   return (
     <TimelineContext.Provider value={timeline}>
       <div id="container"></div>
+      <div
+        style={{
+          position: "absolute",
+          top: "10px",
+          width: "100%",
+          textAlign: "center",
+          zIndex: 100,
+          display: "block",
+        }}
+      >
+        Hello
+      </div>
     </TimelineContext.Provider>
   );
 }

@@ -35,14 +35,6 @@ export class Text {
   }
 
   createText = () => {
-    // ead7c6
-    // B78E8A
-    // C9A5A5
-    // AEDFF7
-    // const textColor = "#B8C7E0";
-    // D6D6C2
-    // 333333
-
     const textColor = "#333333";
     this.materials = [
       new THREE.MeshPhongMaterial({ color: textColor, flatShading: true }), // front
