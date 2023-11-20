@@ -3,7 +3,12 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Reflector } from "three/addons/objects/Reflector.js";
 import { gsap } from "gsap";
-import { animationEase, pathLength, visiualDepth } from "./constants";
+import {
+  animationEase,
+  pathLength,
+  startingPoint,
+  visiualDepth,
+} from "./constants";
 
 export class Environment {
   constructor() {
@@ -107,11 +112,21 @@ export class Environment {
       new THREE.PlaneGeometry(100, pathLength),
       new THREE.MeshBasicMaterial({ color: "#AAB4D0" })
     );
-
-    this.planeBottom.position.y = -20;
+    this.planeBottom.position.y = -30;
     this.planeBottom.position.z = pathLength * 1.5;
     this.planeBottom.rotateX(-Math.PI / 2);
     this.scene.add(this.planeBottom);
+
+    const geometry = new THREE.BoxGeometry(3, 3, pathLength);
+    const material = new THREE.MeshBasicMaterial({ color: "#8B0000" });
+    this.cube = new THREE.Mesh(geometry, material);
+    this.cube.position.y = -25;
+    console.log(startingPoint);
+    this.cube.position.z = startingPoint - pathLength / 2;
+    this.scene.add(this.cube);
+
+    // // this.camera.position.set(0, 100, 0);
+    // this.camera.lookAt(this.cube.position);
 
     // const planeRight = new THREE.Mesh(
     //   new THREE.PlaneGeometry(length, 100),
@@ -121,7 +136,6 @@ export class Environment {
     // planeRight.position.z = length;
     // planeRight.rotateY(-Math.PI / 2);
     // this.scene.add(planeRight);
-
     // const planeLeft = new THREE.Mesh(
     //   new THREE.PlaneGeometry(length, 100),
     //   new THREE.MeshBasicMaterial({ color: "#FFC7C7" })
@@ -130,7 +144,6 @@ export class Environment {
     // planeLeft.position.z = length;
     // planeLeft.rotateY(Math.PI / 2);
     // this.scene.add(planeLeft);
-
     // const planeTop = new THREE.Mesh(
     //   new THREE.PlaneGeometry(100, length),
     //   new THREE.MeshBasicMaterial({ color: "#C683D7" })
@@ -149,7 +162,10 @@ export class Environment {
 
     const points = this.curve.getPoints(2);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({});
+    const material = new THREE.LineBasicMaterial({
+      color: "#3aa3ff",
+      linewidth: 9,
+    });
     const curveObject = new THREE.Line(geometry, material);
     this.scene.add(curveObject);
   };
@@ -205,7 +221,7 @@ export class Environment {
 
     // getAtPoint function copies the [this.progress]th position to the given vector variable
     this.curve.getPointAt(this.lerp.current, this.position);
-
     this.camera.position.copy(this.position);
+    this.camera.lookAt(this.cube.position);
   };
 }

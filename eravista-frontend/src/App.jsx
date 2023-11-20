@@ -11,6 +11,8 @@ import {
   startingPoint,
 } from "./helpers/constants";
 import { Timeline } from "./helpers/Timeline";
+import { TimePoints } from "./helpers/TimePoints";
+import { start } from "./helpers/x";
 axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
@@ -49,8 +51,17 @@ function App() {
   useEffect(() => {
     if (timeline.length) {
       new Timeline(environment.current.scene, timeline);
+      new TimePoints(
+        environment.current.scene,
+        environment.current.renderer,
+        environment.current.camera
+      );
     }
   }, [timeline]);
+
+  // useEffect(() => {
+  //   start();
+  // }, []);
 
   const retrieveTimeline = async () => {
     const response = await axios.get();
