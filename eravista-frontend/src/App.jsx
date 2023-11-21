@@ -81,10 +81,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("isLoading", isLoading);
-  }, [isLoading]);
-
-  useEffect(() => {
     for (let element of timelinePositions) {
       const geometry = new THREE.BoxGeometry(7, 7, 7);
       const material = new THREE.MeshBasicMaterial({ color: "#39FF14" });
@@ -154,7 +150,7 @@ function App() {
         }}
       >
         {" "}
-        {isLoading ? (
+        {isLoading && currentPosition < labelSpace - 750 ? (
           <div>LOADING!!!!</div>
         ) : (
           <>
