@@ -1,8 +1,8 @@
-import { labelSpace, startingPoint } from "./constants";
+import { labelSpace, timelinePositions } from "./constants";
 import { Text } from "./Text";
 
 const space = 400;
-const timelinePositions = {};
+
 export class Timeline {
   constructor(scene, data) {
     this.scene = scene;
@@ -27,20 +27,11 @@ export class Timeline {
       );
 
       for (let yearEvents of centuryData.events) {
-        const eventSpace = 200;
         for (let events of yearEvents.events) {
-          centurySpace -= eventSpace;
+          centurySpace -= space;
           timelinePositions[events.id] = centurySpace;
-          // new Text(
-          //   this.scene,
-          //   yearEvents.year.includes("?") ? "-" : yearEvents.year + "w",
-          //   -48,
-          //   centurySpace,
-          //   2,
-          //   1
-          // );
         }
-        centurySpace -= eventSpace;
+        centurySpace -= space;
         new Text(
           this.scene,
           yearEvents.year.includes("?") ? "-" : yearEvents.year,
@@ -53,7 +44,5 @@ export class Timeline {
       }
       centurySpace -= space;
     }
-
-    console.log(timelinePositions);
   };
 }

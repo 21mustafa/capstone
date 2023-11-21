@@ -7,12 +7,15 @@ import {
   animationEase,
   pathLength,
   startingPoint,
+  timelinePositions,
   visiualDepth,
 } from "./constants";
+import { Timeline } from "./Timeline";
 
 export class Environment {
-  constructor(onScroll) {
+  constructor(timeline, onScroll) {
     this.onScroll = onScroll;
+    this.timeline = timeline;
     this.createRenderer();
     // scene
     this.scene = new THREE.Scene();
@@ -119,12 +122,24 @@ export class Environment {
     this.scene.add(this.planeBottom);
 
     const geometry = new THREE.BoxGeometry(3, 3, pathLength);
-    const material = new THREE.MeshBasicMaterial({ color: "#8B0000" });
+    const material = new THREE.MeshBasicMaterial({ color: "#A9A9A9" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
     this.cube.position.z = startingPoint - pathLength / 2;
     this.scene.add(this.cube);
 
+    console.log(this.timeline);
+    new Timeline(this.scene, this.timeline);
+    for (let timelinePosition of Object.values(timelinePositions)) {
+      const geometry = new THREE.BoxGeometry(7, 7, 7);
+      const material = new THREE.MeshBasicMaterial({ color: "#39FF14" });
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.z = timelinePosition;
+      cube.position.y = -25;
+      this.scene.add(cube);
+    }
+
+    console.log(timelinePositions);
     // // this.camera.position.set(0, 100, 0);
     // this.camera.lookAt(this.cube.position);
 

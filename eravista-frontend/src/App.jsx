@@ -11,7 +11,6 @@ import {
   startingPoint,
 } from "./helpers/constants";
 import { Timeline } from "./helpers/Timeline";
-import { TimePoints } from "./helpers/TimePoints";
 axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
@@ -19,52 +18,41 @@ function App() {
   const environment = useRef();
 
   const onScroll = (position) => {
-    console.log(position);
+    // console.log(position);
   };
 
   useEffect(() => {
-    environment.current = new Environment(onScroll);
-    new Text(
-      environment.current.scene,
-      "Era Vista",
-      -40,
-      startingPoint,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      55
-    );
-
-    new Text(
-      environment.current.scene,
-      "Canada",
-      -40,
-      labelSpace,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      55
-    );
-
     void retrieveTimeline();
   }, []);
 
   useEffect(() => {
     if (timeline.length) {
-      new Timeline(environment.current.scene, timeline);
-      new TimePoints(
+      environment.current = new Environment(timeline, onScroll);
+      new Text(
         environment.current.scene,
-        environment.current.renderer,
-        environment.current.camera
+        "Era Vista",
+        -40,
+        startingPoint,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        55
+      );
+
+      new Text(
+        environment.current.scene,
+        "Canada",
+        -40,
+        labelSpace,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        55
       );
     }
   }, [timeline]);
-
-  // useEffect(() => {
-  //   start();
-  // }, []);
 
   const retrieveTimeline = async () => {
     const response = await axios.get();
