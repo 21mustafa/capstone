@@ -1,5 +1,6 @@
 import { labelSpace, timelinePositions } from "./constants";
 import { Text } from "./Text";
+import * as THREE from "three";
 
 const space = 400;
 
@@ -27,8 +28,6 @@ export class Timeline {
         55
       );
 
-      // centurySpace -= space / 2;
-
       for (let yearEvents of centuryData.events) {
         let i = 0;
         for (let events of yearEvents.events) {
@@ -55,8 +54,18 @@ export class Timeline {
           1,
           true
         );
+
+        const material = new THREE.LineBasicMaterial({
+          color: "#A9A9A9",
+        });
+        const points = [];
+        points.push(new THREE.Vector3(50, -25, centurySpace));
+        points.push(new THREE.Vector3(-50, -25, centurySpace));
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, material);
+        this.scene.add(line);
       }
-      // centurySpace -= space / 2;
     }
 
     this.setTimelinePositions(

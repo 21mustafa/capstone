@@ -21,17 +21,18 @@ function App() {
   const [timelinePositions, setTimelinePositions] = useState([]);
 
   const [currentPosition, setCurrentPosition] = useState(-1);
+  const [currentEvent, setCurrentEvent] = useState(null);
+  const boxes = useRef({});
+  const preEventBox = useRef(null);
   const environment = useRef();
 
   const onScroll = (position) => {
-    console.log(position, labelSpace);
-
     if (position > labelSpace - 750) {
       return;
     }
     for (let i = 0; i < timelinePositions.length; i++) {
       if (i + 1 === timelinePositions.length) {
-        console.log(timelinePositions[i]);
+        setCurrentEvent(timelinePositions[i]);
         break;
       }
 
@@ -39,7 +40,7 @@ function App() {
         const pointAPosition = labelSpace;
         const pointBPosition = timelinePositions[i].position;
         if (pointBPosition < position && position < pointAPosition) {
-          console.log(timelinePositions[i]);
+          setCurrentEvent(timelinePositions[i]);
           break;
         }
       }
@@ -47,11 +48,21 @@ function App() {
       const pointA = timelinePositions[i];
       const pointB = timelinePositions[i + 1];
       if (pointB.position < position && position < pointA.position) {
-        console.log(pointB);
+        setCurrentEvent(pointB);
         break;
       }
     }
   };
+
+  useEffect(() => {
+    if (preEventBox.current) {
+      preEventBox.current.material.color = new THREE.Color("#39FF14");
+    }
+    if (currentEvent) {
+      boxes.current[currentEvent.id].material.color.setHex(0xffffff);
+      preEventBox.current = boxes.current[currentEvent.id];
+    }
+  }, [currentEvent]);
 
   useEffect(() => {
     if (currentPosition !== -1) {
@@ -61,7 +72,7 @@ function App() {
 
   const debouncedScrollHandler = debounce((position) => {
     setCurrentPosition(position);
-  }, 200);
+  }, 50);
 
   useEffect(() => {
     void retrieveTimeline();
@@ -75,6 +86,8 @@ function App() {
       cube.position.z = element.position;
       cube.position.y = -25;
       environment.current.scene.add(cube);
+
+      boxes.current[element.id] = cube;
     }
   }, [timelinePositions]);
 
@@ -121,14 +134,19 @@ function App() {
       <div
         style={{
           position: "absolute",
-          top: "10px",
-          width: "100%",
-          textAlign: "center",
+          top: "30%",
+          maxWidth: "25rem",
           zIndex: 100,
           display: "block",
+          left: "50%",
+          transform: "translate(-50%, 0)",
+          backgroundColor: "white",
         }}
       >
-        Hello
+        <div>
+          {currentEvent?.year}, {currentEvent?.date}{" "}
+        </div>
+        <div>{currentEvent?.description}</div>
       </div>
     </TimelineContext.Provider>
   );

@@ -9,7 +9,6 @@ import {
   startingPoint,
   visiualDepth,
 } from "./constants";
-import { Timeline } from "./Timeline";
 
 export class Environment {
   constructor(timeline, onScroll) {
@@ -126,34 +125,6 @@ export class Environment {
     this.cube.position.y = -25;
     this.cube.position.z = startingPoint - pathLength / 2;
     this.scene.add(this.cube);
-
-    // // this.camera.position.set(0, 100, 0);
-    // this.camera.lookAt(this.cube.position);
-
-    // const planeRight = new THREE.Mesh(
-    //   new THREE.PlaneGeometry(length, 100),
-    //   new THREE.MeshBasicMaterial({ color: "#7C93C3" })
-    // );
-    // planeRight.position.x = 50;
-    // planeRight.position.z = length;
-    // planeRight.rotateY(-Math.PI / 2);
-    // this.scene.add(planeRight);
-    // const planeLeft = new THREE.Mesh(
-    //   new THREE.PlaneGeometry(length, 100),
-    //   new THREE.MeshBasicMaterial({ color: "#FFC7C7" })
-    // );
-    // planeLeft.position.x = -50;
-    // planeLeft.position.z = length;
-    // planeLeft.rotateY(Math.PI / 2);
-    // this.scene.add(planeLeft);
-    // const planeTop = new THREE.Mesh(
-    //   new THREE.PlaneGeometry(100, length),
-    //   new THREE.MeshBasicMaterial({ color: "#C683D7" })
-    // );
-    // planeTop.position.y = 50;
-    // planeTop.position.z = length;
-    // planeTop.rotateX(Math.PI / 2);
-    // this.scene.add(planeTop);
   };
 
   createPath = () => {
