@@ -4,7 +4,8 @@ import { Text } from "./Text";
 const space = 400;
 
 export class Timeline {
-  constructor(scene, data) {
+  constructor(scene, data, setTimelinePositions) {
+    this.setTimelinePositions = setTimelinePositions;
     this.scene = scene;
     this.data = data;
     this.createCenturies();
@@ -12,7 +13,7 @@ export class Timeline {
 
   createCenturies = () => {
     let centurySpace = labelSpace - 750;
-
+    const timelinePositions = [];
     for (let centuryData of this.data) {
       new Text(
         this.scene,
@@ -26,7 +27,7 @@ export class Timeline {
         55
       );
 
-      centurySpace -= space / 2;
+      // centurySpace -= space / 2;
 
       for (let yearEvents of centuryData.events) {
         let i = 0;
@@ -37,7 +38,11 @@ export class Timeline {
             centurySpace -= space;
           }
 
-          timelinePositions[events.id] = centurySpace;
+          timelinePositions.push({
+            position: centurySpace,
+            ...events,
+            year: yearEvents.year,
+          });
           i++;
         }
         centurySpace -= space / 2;
@@ -51,7 +56,13 @@ export class Timeline {
           true
         );
       }
-      centurySpace -= space / 2;
+      // centurySpace -= space / 2;
     }
+
+    this.setTimelinePositions(
+      timelinePositions.sort(
+        (element1, element2) => element2.position - element1.position
+      )
+    );
   };
 }

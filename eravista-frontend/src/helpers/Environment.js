@@ -7,7 +7,6 @@ import {
   animationEase,
   pathLength,
   startingPoint,
-  timelinePositions,
   visiualDepth,
 } from "./constants";
 import { Timeline } from "./Timeline";
@@ -127,16 +126,6 @@ export class Environment {
     this.cube.position.y = -25;
     this.cube.position.z = startingPoint - pathLength / 2;
     this.scene.add(this.cube);
-
-    new Timeline(this.scene, this.timeline);
-    for (let timelinePosition of Object.values(timelinePositions)) {
-      const geometry = new THREE.BoxGeometry(7, 7, 7);
-      const material = new THREE.MeshBasicMaterial({ color: "#39FF14" });
-      const cube = new THREE.Mesh(geometry, material);
-      cube.position.z = timelinePosition;
-      cube.position.y = -25;
-      this.scene.add(cube);
-    }
 
     // // this.camera.position.set(0, 100, 0);
     // this.camera.lookAt(this.cube.position);
