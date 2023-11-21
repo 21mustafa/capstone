@@ -26,12 +26,21 @@ export class Timeline {
         55
       );
 
+      centurySpace -= space / 2;
+
       for (let yearEvents of centuryData.events) {
+        let i = 0;
         for (let events of yearEvents.events) {
-          centurySpace -= space;
+          if (0 === i) {
+            centurySpace -= space / 2;
+          } else {
+            centurySpace -= space;
+          }
+
           timelinePositions[events.id] = centurySpace;
+          i++;
         }
-        centurySpace -= space;
+        centurySpace -= space / 2;
         new Text(
           this.scene,
           yearEvents.year.includes("?") ? "-" : yearEvents.year,
@@ -42,7 +51,7 @@ export class Timeline {
           true
         );
       }
-      centurySpace -= space;
+      centurySpace -= space / 2;
     }
   };
 }

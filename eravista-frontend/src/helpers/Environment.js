@@ -128,7 +128,6 @@ export class Environment {
     this.cube.position.z = startingPoint - pathLength / 2;
     this.scene.add(this.cube);
 
-    console.log(this.timeline);
     new Timeline(this.scene, this.timeline);
     for (let timelinePosition of Object.values(timelinePositions)) {
       const geometry = new THREE.BoxGeometry(7, 7, 7);
@@ -139,7 +138,6 @@ export class Environment {
       this.scene.add(cube);
     }
 
-    console.log(timelinePositions);
     // // this.camera.position.set(0, 100, 0);
     // this.camera.lookAt(this.cube.position);
 
