@@ -11,9 +11,10 @@ import {
 } from "./constants";
 
 export class Environment {
-  constructor(timeline, onScroll) {
+  constructor(timeline, onScroll, onLoading) {
     this.onScroll = onScroll;
     this.timeline = timeline;
+    this.onLoading = onLoading;
     this.createRenderer();
     // scene
     this.scene = new THREE.Scene();
@@ -178,6 +179,8 @@ export class Environment {
       } else {
         this.lerp.target -= animationEase;
       }
+
+      this.onLoading();
     });
   };
 

@@ -18,6 +18,7 @@ axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
   const [timeline, setTimeline] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [timelinePositions, setTimelinePositions] = useState([]);
 
   const [currentPosition, setCurrentPosition] = useState(-1);
@@ -71,12 +72,17 @@ function App() {
   }, [currentPosition]);
 
   const debouncedScrollHandler = debounce((position) => {
+    setIsLoading(false);
     setCurrentPosition(position);
   }, 50);
 
   useEffect(() => {
     void retrieveTimeline();
   }, []);
+
+  useEffect(() => {
+    console.log("isLoading", isLoading);
+  }, [isLoading]);
 
   useEffect(() => {
     for (let element of timelinePositions) {
@@ -93,7 +99,11 @@ function App() {
 
   useEffect(() => {
     if (timeline.length) {
-      environment.current = new Environment(timeline, debouncedScrollHandler);
+      environment.current = new Environment(
+        timeline,
+        debouncedScrollHandler,
+        () => setIsLoading(true)
+      );
 
       new Timeline(environment.current.scene, timeline, setTimelinePositions);
 
@@ -143,10 +153,17 @@ function App() {
           backgroundColor: "white",
         }}
       >
-        <div>
-          {currentEvent?.year}, {currentEvent?.date}{" "}
-        </div>
-        <div>{currentEvent?.description}</div>
+        {" "}
+        {isLoading ? (
+          <div>LOADING!!!!</div>
+        ) : (
+          <>
+            <div>
+              {currentEvent?.year}, {currentEvent?.date}{" "}
+            </div>
+            <div>{currentEvent?.description}</div>
+          </>
+        )}
       </div>
     </TimelineContext.Provider>
   );
