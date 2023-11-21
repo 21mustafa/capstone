@@ -12,15 +12,18 @@ import {
 } from "./helpers/constants";
 import { Timeline } from "./helpers/Timeline";
 import { TimePoints } from "./helpers/TimePoints";
-import { start } from "./helpers/x";
 axios.defaults.baseURL = "http://localhost:8000";
 
 function App() {
   const [timeline, setTimeline] = useState([]);
   const environment = useRef();
 
+  const onScroll = (position) => {
+    console.log(position);
+  };
+
   useEffect(() => {
-    environment.current = new Environment();
+    environment.current = new Environment(onScroll);
     new Text(
       environment.current.scene,
       "Era Vista",

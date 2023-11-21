@@ -1,10 +1,8 @@
 import { labelSpace, startingPoint } from "./constants";
 import { Text } from "./Text";
-import {
-  CSS3DRenderer,
-  CSS3DObject,
-} from "three/examples/jsm/renderers/CSS3DRenderer.js";
 
+const space = 400;
+const timelinePositions = {};
 export class Timeline {
   constructor(scene, data) {
     this.scene = scene;
@@ -15,7 +13,6 @@ export class Timeline {
   createCenturies = () => {
     let centurySpace = labelSpace - 750;
 
-    let latest = true;
     for (let centuryData of this.data) {
       new Text(
         this.scene,
@@ -28,12 +25,22 @@ export class Timeline {
         undefined,
         55
       );
-      centurySpace -= 250;
 
       for (let yearEvents of centuryData.events) {
-        let x = centurySpace;
+        const eventSpace = 200;
         for (let events of yearEvents.events) {
+          centurySpace -= eventSpace;
+          timelinePositions[events.id] = centurySpace;
+          // new Text(
+          //   this.scene,
+          //   yearEvents.year.includes("?") ? "-" : yearEvents.year + "w",
+          //   -48,
+          //   centurySpace,
+          //   2,
+          //   1
+          // );
         }
+        centurySpace -= eventSpace;
         new Text(
           this.scene,
           yearEvents.year.includes("?") ? "-" : yearEvents.year,
@@ -43,10 +50,10 @@ export class Timeline {
           1,
           true
         );
-        centurySpace -= 100;
       }
-
-      centurySpace -= 150;
+      centurySpace -= space;
     }
+
+    console.log(timelinePositions);
   };
 }

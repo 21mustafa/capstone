@@ -1,5 +1,6 @@
 import wiki from "wikijs";
 import { parse } from "node-html-parser";
+import { v4 as uuidv4 } from "uuid";
 
 const parseHtml = async () => {
   const pageInfo = await wiki().page("Timeline_of_Canadian_history");
@@ -167,7 +168,7 @@ export const parseTimeline = async () => {
 
     const finalEvents = [];
     const revertEvents = events.reverse();
-    let prevYear = "-";
+
     for (let event of revertEvents) {
       const obj = finalEvents.find((item) => item.year === event.year);
 
@@ -175,6 +176,7 @@ export const parseTimeline = async () => {
         finalEvents
           .find((item) => item.year === event.year)
           .events.push({
+            id: uuidv4(),
             description: event.event,
             refs: event.refs,
             date: event.date,
@@ -184,6 +186,7 @@ export const parseTimeline = async () => {
           year: event.year ? event.year : `?${event.date}`,
           events: [
             {
+              id: uuidv4(),
               description: event.event,
               refs: event.refs,
               date: event.date,
@@ -191,7 +194,6 @@ export const parseTimeline = async () => {
           ],
         };
         finalEvents.push(eventObj);
-        prevYear = event.year;
       }
     }
 

@@ -11,7 +11,8 @@ import {
 } from "./constants";
 
 export class Environment {
-  constructor() {
+  constructor(onScroll) {
+    this.onScroll = onScroll;
     this.createRenderer();
     // scene
     this.scene = new THREE.Scene();
@@ -121,7 +122,6 @@ export class Environment {
     const material = new THREE.MeshBasicMaterial({ color: "#8B0000" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
-    console.log(startingPoint);
     this.cube.position.z = startingPoint - pathLength / 2;
     this.scene.add(this.cube);
 
@@ -183,12 +183,12 @@ export class Environment {
     //     window.innerHeight * window.devicePixelRatio
     //   );
 
-    this.planeBottom
-      .getRenderTarget()
-      .setSize(
-        window.innerWidth * window.devicePixelRatio,
-        window.innerHeight * window.devicePixelRatio
-      );
+    // this.planeBottom
+    //   .getRenderTarget()
+    //   .setSize(
+    //     window.innerWidth * window.devicePixelRatio,
+    //     window.innerHeight * window.devicePixelRatio
+    //   );
   };
 
   animate = () => {
@@ -220,8 +220,13 @@ export class Environment {
     this.lerp.current = gsap.utils.clamp(0, 1, this.lerp.current);
 
     // getAtPoint function copies the [this.progress]th position to the given vector variable
+    const prevPosition = this.position.z;
+
     this.curve.getPointAt(this.lerp.current, this.position);
     this.camera.position.copy(this.position);
-    this.camera.lookAt(this.cube.position);
+
+    if (prevPosition.toFixed(0) !== this.position.z.toFixed(0)) {
+      this.onScroll(this.camera.position.z);
+    }
   };
 }
