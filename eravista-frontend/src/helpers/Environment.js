@@ -121,11 +121,11 @@ export class Environment {
     this.planeBottom.rotateX(-Math.PI / 2);
     this.scene.add(this.planeBottom);
 
-    const geometry = new THREE.BoxGeometry(3, 3, pathLength);
+    const geometry = new THREE.BoxGeometry(3, 3, pathLength - 550);
     const material = new THREE.MeshBasicMaterial({ color: "#A9A9A9" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
-    this.cube.position.z = startingPoint - pathLength / 2;
+    this.cube.position.z = startingPoint;
     this.scene.add(this.cube);
   };
 
@@ -178,45 +178,67 @@ export class Environment {
   animate = () => {
     if (!this.stop) {
       requestAnimationFrame(() => this.animate());
-      this.moveCameraAlongTheCurve();
-      this.controls.update();
-      this.renderer.render(this.scene, this.camera);
     }
+    this.moveCameraAlongTheCurve();
+    this.controls.update();
+    this.renderer.render(this.scene, this.camera);
+  };
+
+  move = (delta) => {
+    if (delta > 0) {
+      if (this.lerp.target < 0.331) {
+        this.lerp.target += animationEase;
+      }
+    } else {
+      this.lerp.target -= animationEase;
+    }
+
+    this.onLoading();
   };
 
   onWheel = () => {
     window.addEventListener("wheel", (e) => {
       if (!this.stop) {
-        if (e.deltaY > 0) {
-          this.lerp.target += animationEase;
-        } else {
-          this.lerp.target -= animationEase;
-        }
-
-        this.onLoading();
+        this.move(e.deltaY);
       }
     });
   };
 
-  moveCameraAlongTheCurve = () => {
-    this.lerp.current = gsap.utils.interpolate(
-      this.lerp.current,
-      this.lerp.target,
-      this.lerp.ease
+  calculatePosition = (lerp) => {
+    let targetLerp = { ...lerp };
+    targetLerp.current = gsap.utils.interpolate(
+      targetLerp.current,
+      targetLerp.target,
+      targetLerp.ease
     );
 
     // clamp will allow a variable between given params
-    this.lerp.target = gsap.utils.clamp(0, 1, this.lerp.target);
-    this.lerp.current = gsap.utils.clamp(0, 1, this.lerp.current);
+    targetLerp.target = gsap.utils.clamp(0, 1, targetLerp.target);
+    targetLerp.current = gsap.utils.clamp(0, 1, targetLerp.current);
 
-    // getAtPoint function copies the [this.progress]th position to the given vector variable
-    const prevPosition = this.position.z;
+    if (targetLerp.target >= 0.331) {
+      targetLerp = null;
+    }
+    return targetLerp;
+  };
 
-    this.curve.getPointAt(this.lerp.current, this.position);
-    this.camera.position.copy(this.position);
+  getLerpFromPosition = (zPosition) => {
+    return 1 - zPosition / this.curve.getLength();
+  };
 
-    if (prevPosition.toFixed(0) !== this.position.z.toFixed(0)) {
-      this.onScroll(this.camera.position.z);
+  moveCameraAlongTheCurve = () => {
+    const result = this.calculatePosition({ ...this.lerp });
+
+    if (result) {
+      this.lerp = result;
+      // getAtPoint function copies the [this.progress]th position to the given vector variable
+      const prevPosition = this.position.z;
+      this.curve.getPointAt(this.lerp.current, this.position);
+      this.camera.position.copy(this.position);
+
+      if (prevPosition.toFixed(0) !== this.position.z.toFixed(0)) {
+        this.onScroll(this.camera.position.z);
+      }
     }
   };
 }

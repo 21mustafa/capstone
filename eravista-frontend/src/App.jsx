@@ -5,6 +5,7 @@ import ThreeD from "./ThreeD";
 import { Environment } from "./helpers/Environment";
 import { Text } from "./helpers/Text";
 import {
+  animationEase,
   getNextTextSpace,
   labelSpace,
   nextTextSpace,
@@ -15,6 +16,7 @@ import debounce from "lodash.debounce";
 import * as THREE from "three";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
+import Slider from "react-input-slider";
 
 axios.defaults.baseURL = "http://localhost:8000";
 
@@ -25,6 +27,9 @@ function App() {
 
   const [currentPosition, setCurrentPosition] = useState(-1);
   const [currentEvent, setCurrentEvent] = useState(null);
+
+  const [sliderX, setSliderX] = useState(0);
+
   const boxes = useRef({});
   const preEventBox = useRef(null);
   const environment = useRef();
@@ -81,6 +86,10 @@ function App() {
   useEffect(() => {
     void retrieveTimeline();
   }, []);
+
+  useEffect(() => {
+    console.log(sliderX);
+  }, [sliderX]);
 
   useEffect(() => {
     for (let element of timelinePositions) {
@@ -151,6 +160,41 @@ function App() {
         stopAnimation={environment.current?.stopAnimation}
         startAnimation={environment.current?.startAnimation}
       />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          zIndex: 100,
+          display: "block",
+          left: "50%",
+          transform: "translate(-50%, 0)",
+          backgroundColor: "transparent",
+          height: "calc(100vh - 8rem)",
+          margin: "4rem 0",
+        }}
+      >
+        <Slider axis="x" x={sliderX} onChange={({ x }) => setSliderX(x)} />
+        <button
+          onClick={() => {
+            environment.current.stopAnimation();
+
+            const targetLerp = environment.current.getLerpFromPosition(
+              timelinePositions[timelinePositions.length - 1].position + 175
+            );
+
+            console.log(targetLerp);
+            environment.current.lerp = environment.current.calculatePosition({
+              current: environment.current.lerp.current,
+              target: targetLerp,
+              ease: 0.1,
+            });
+
+            environment.current.startAnimation();
+          }}
+        >
+          wwww
+        </button>
+      </div>
     </TimelineContext.Provider>
   );
 }

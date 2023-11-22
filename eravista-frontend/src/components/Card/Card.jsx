@@ -32,11 +32,13 @@ function Card(props) {
     (ref) => ref.link && !ref.link.includes("#cite_ref")
   );
 
+  const year = props.currentEvent?.year;
+
   return (
     <div className={className}>
       <div className={`card__content ${extend ? "extend" : ""}`}>
         <div className={"card__label"}>
-          {props.currentEvent?.year}, {props.currentEvent?.date}{" "}
+          {year?.includes("?") ? "???" : year}, {props.currentEvent?.date}{" "}
         </div>
         <div className={"card__detail"}>
           {props.currentEvent?.description}
