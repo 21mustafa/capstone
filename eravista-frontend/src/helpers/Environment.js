@@ -42,6 +42,7 @@ export class Environment {
 
     this.createPath();
     this.onWheel();
+    this.stop = false;
 
     this.animate();
   }
@@ -165,22 +166,34 @@ export class Environment {
     //   );
   };
 
+  stopAnimation = () => {
+    this.stop = true;
+  };
+
+  startAnimation = () => {
+    this.stop = false;
+  };
+
   animate = () => {
-    requestAnimationFrame(this.animate);
-    this.moveCameraAlongTheCurve();
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
+    if (!this.stop) {
+      requestAnimationFrame(this.animate);
+      this.moveCameraAlongTheCurve();
+      this.controls.update();
+      this.renderer.render(this.scene, this.camera);
+    }
   };
 
   onWheel = () => {
     window.addEventListener("wheel", (e) => {
-      if (e.deltaY > 0) {
-        this.lerp.target += animationEase;
-      } else {
-        this.lerp.target -= animationEase;
-      }
+      if (!this.stop) {
+        if (e.deltaY > 0) {
+          this.lerp.target += animationEase;
+        } else {
+          this.lerp.target -= animationEase;
+        }
 
-      this.onLoading();
+        this.onLoading();
+      }
     });
   };
 

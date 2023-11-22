@@ -1,0 +1,9 @@
+@mixin view {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    display: block;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: transparent;
+}

@@ -75,13 +75,10 @@ export class Text {
 
   loadFont = () => {
     const loader = new FontLoader();
-    loader.load(
-      "fonts/" + "helvetiker" + "_" + "bold" + ".typeface.json",
-      (response) => {
-        this.font = response;
+    loader.load("fonts/helvetiker_bold.typeface.json", (response) => {
+      this.font = response;
 
-        this.refreshText();
-      }
-    );
+      this.refreshText();
+    });
   };
 }

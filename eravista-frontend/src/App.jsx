@@ -13,6 +13,8 @@ import {
 import { Timeline } from "./helpers/Timeline";
 import debounce from "lodash.debounce";
 import * as THREE from "three";
+import Home from "./pages/Home/Home";
+import Details from "./pages/Details/Details";
 
 axios.defaults.baseURL = "http://localhost:8000";
 
@@ -137,30 +139,17 @@ function App() {
   return (
     <TimelineContext.Provider value={timeline}>
       <div id="container"></div>
-      <div
-        style={{
-          position: "absolute",
-          top: "30%",
-          maxWidth: "25rem",
-          zIndex: 100,
-          display: "block",
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          backgroundColor: "white",
-        }}
-      >
-        {" "}
-        {isLoading && currentPosition < labelSpace - 750 ? (
-          <div>LOADING!!!!</div>
-        ) : (
-          <>
-            <div>
-              {currentEvent?.year}, {currentEvent?.date}{" "}
-            </div>
-            <div>{currentEvent?.description}</div>
-          </>
-        )}
-      </div>
+      <Home
+        displayCard={
+          !(
+            isLoading ||
+            currentPosition > labelSpace - 750 ||
+            currentPosition === -1
+          )
+        }
+        currentEvent={currentEvent}
+        stopAnimation={environment.current?.stopAnimation}
+      />
     </TimelineContext.Provider>
   );
 }

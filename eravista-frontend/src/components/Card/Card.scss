@@ -1,0 +1,91 @@
+.card {
+    width: 50rem;
+    height: fit-content;
+    transition: transform 0.25s, min-height 0.5s;
+    background-color: rgba(170, 180, 208, 0.3);
+    backdrop-filter: blur(3px);
+    border-radius: 20px;
+    transform: scale(1);
+    padding: 3rem 3rem 0rem 3rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px,
+        rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    min-height: 10rem;
+    margin-top: 5rem;
+
+    &.collapse {
+        transform: scale(0);
+    }
+
+    &.extend {
+        min-height: 65rem;
+        .card__more-button {
+            .fa-chevron-down {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__content {
+        background-color: #aab4d0e8;
+        backdrop-filter: blur(3px);
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: rgb(50 50 93 / 6%) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.22) 0px 18px 36px -18px inset;
+        min-height: 10rem;
+        transition: min-height 0.5s;
+        &.extend {
+            min-height: 56rem;
+        }
+    }
+
+    &__label {
+        color: white;
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    &__detail {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 2rem;
+        a {
+            color: white;
+            font-size: 1.25rem;
+
+            &:first-of-type {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
+    &__more-button {
+        width: 100%;
+        border: none;
+        text-align: center;
+        border-radius: 20px;
+        color: white;
+        background-color: transparent;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 1s;
+        max-height: 3rem;
+        overflow: hidden;
+        margin: 0.25rem;
+
+        .fa-chevron-down {
+            border-radius: 50%;
+            padding: 0.25rem;
+            background-color: transparent;
+            transform: rotate(0deg);
+            transition: background-color 0.25s, transform 0.25s;
+        }
+
+        &:hover {
+            .fa-chevron-down {
+                background-color: #aab4d0;
+            }
+        }
+    }
+}
