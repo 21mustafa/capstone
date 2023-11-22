@@ -10,7 +10,7 @@
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px,
         rgba(17, 17, 26, 0.1) 0px 16px 48px;
     min-height: 10rem;
-    margin-top: 5rem;
+    max-height: 100vh;
 
     &.collapse {
         transform: scale(0);
@@ -23,6 +23,14 @@
                 transform: rotate(180deg);
             }
         }
+
+        .card__detail-video {
+            height: 30rem;
+        }
+
+        .card__detail-picture {
+            height: 44rem;
+        }
     }
 
     &__content {
@@ -33,6 +41,8 @@
         box-shadow: rgb(50 50 93 / 6%) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.22) 0px 18px 36px -18px inset;
         min-height: 10rem;
         transition: min-height 0.5s;
+        max-height: 79rem;
+        overflow: scroll;
         &.extend {
             min-height: 56rem;
         }
@@ -51,11 +61,71 @@
         font-weight: 500;
         line-height: 2rem;
         a {
-            color: white;
+            color: #6f7586;
             font-size: 1.25rem;
+            transition: color 0.5s;
 
             &:first-of-type {
                 margin-left: 0.5rem;
+            }
+
+            &:hover {
+                color: #3a3c44;
+                iframe {
+                    width: 100%;
+                }
+            }
+        }
+
+        &-video {
+            transition: height 0.5s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 0;
+            &-container {
+                overflow: hidden;
+                border-radius: 20px;
+                height: 100%;
+            }
+
+            &-label {
+                margin: 1rem 0;
+                border-bottom: 1px solid white;
+                padding-bottom: 0.5rem;
+                font-size: 1.75rem;
+            }
+        }
+
+        &-picture {
+            display: flex;
+            margin-top: 0.5rem;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            height: 0;
+            transition: height 0.5s;
+            &-container {
+                overflow: hidden;
+                border-radius: 20px;
+            }
+            &-label {
+                margin: 1rem 0;
+                border-bottom: 1px solid white;
+                padding-bottom: 0.5rem;
+                font-size: 1.75rem;
+            }
+        }
+
+        &-refs {
+            &-label {
+                margin: 1rem 0;
+                border-bottom: 1px solid white;
+                padding-bottom: 0.5rem;
+                font-size: 1.75rem;
+            }
+
+            &-container {
             }
         }
     }

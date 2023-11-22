@@ -172,11 +172,12 @@ export class Environment {
 
   startAnimation = () => {
     this.stop = false;
+    this.animate();
   };
 
   animate = () => {
     if (!this.stop) {
-      requestAnimationFrame(this.animate);
+      requestAnimationFrame(() => this.animate());
       this.moveCameraAlongTheCurve();
       this.controls.update();
       this.renderer.render(this.scene, this.camera);

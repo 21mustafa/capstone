@@ -149,6 +149,7 @@ function App() {
         }
         currentEvent={currentEvent}
         stopAnimation={environment.current?.stopAnimation}
+        startAnimation={environment.current?.startAnimation}
       />
     </TimelineContext.Provider>
   );

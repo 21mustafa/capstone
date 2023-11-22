@@ -8,7 +8,8 @@ function Home(props) {
       <Card
         display={props.displayCard}
         currentEvent={props.currentEvent}
-        stopScroll={props.stopAnimation}
+        stopAnimation={props.stopAnimation}
+        startAnimation={props.startAnimation}
       />
     </div>
   );
