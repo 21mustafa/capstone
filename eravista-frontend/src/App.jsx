@@ -1,7 +1,6 @@
 import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { TimelineContext } from "./context/TimelineContext";
-import ThreeD from "./ThreeD";
 import { Environment } from "./helpers/Environment";
 import { Text } from "./helpers/Text";
 import {
@@ -10,6 +9,7 @@ import {
   labelSpace,
   nextTextSpace,
   startingPoint,
+  pathLength,
 } from "./helpers/constants";
 import { Timeline } from "./helpers/Timeline";
 import debounce from "lodash.debounce";
@@ -34,7 +34,6 @@ function App() {
   const environment = useRef();
 
   const onScroll = (position) => {
-    console.log(position);
     if (position > labelSpace - 750) {
       return;
     }
@@ -60,6 +59,13 @@ function App() {
         break;
       }
     }
+  };
+
+  const updateSlide = (position) => {
+    const max1 = startingPoint + 200;
+    const min1 = pathLength + 460;
+
+    setSliderX(100 - ((position - min1) / (max1 - min1)) * 100);
   };
 
   useEffect(() => {
@@ -106,7 +112,10 @@ function App() {
     if (timeline.length) {
       environment.current = new Environment(
         timeline,
-        debouncedScrollHandler,
+        (position) => {
+          debouncedScrollHandler(position);
+          updateSlide(position);
+        },
         () => setIsLoading(true)
       );
 

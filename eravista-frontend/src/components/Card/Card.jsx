@@ -4,27 +4,11 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function Card(props) {
-  const [extend, setExtend] = useState(false);
-
-  useEffect(() => {
-    if (props.display) {
-      setExtend(false);
-    }
-  }, [props.display]);
-
-  useEffect(() => {
-    if (extend) {
-      props?.stopAnimation && props?.stopAnimation();
-    } else {
-      props?.startAnimation && props?.startAnimation();
-    }
-  }, [extend]);
-
   const toggleDetail = async () => {
-    setExtend((value) => !value);
+    props.setExtend((value) => !value);
   };
 
-  const className = `card ${extend ? "extend" : ""} ${
+  const className = `card ${props.extend ? "extend" : ""} ${
     props.display ? "" : "collapse"
   } `;
 
@@ -35,8 +19,8 @@ function Card(props) {
   const year = props.currentEvent?.year;
 
   return (
-    <div className={className}>
-      <div className={`card__content ${extend ? "extend" : ""}`}>
+    <div className={className} onClick={(e) => e.stopPropagation()}>
+      <div className={`card__content ${props.extend ? "extend" : ""}`}>
         <div className={"card__label"}>
           {year?.includes("?") ? "???" : year}, {props.currentEvent?.date}{" "}
         </div>
@@ -106,7 +90,10 @@ function Card(props) {
       </div>
       <button
         className={"card__more-button"}
-        onClick={() => void toggleDetail()}
+        onClick={(e) => {
+          e.stopPropagation();
+          void toggleDetail();
+        }}
       >
         <i class="fa-solid fa-chevron-down"></i>
       </button>

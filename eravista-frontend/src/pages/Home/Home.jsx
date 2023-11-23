@@ -1,17 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import "./Home.scss";
 import Slider from "react-input-slider";
 
 function Home(props) {
+  const [extend, setExtend] = useState(false);
+  const display = props.displayCard && !!props.currentEvent;
+
+  useEffect(() => {
+    if (extend) {
+      props?.stopAnimation && props?.stopAnimation();
+    } else {
+      props?.startAnimation && props?.startAnimation();
+    }
+  }, [extend]);
+
+  useEffect(() => {
+    if (display) {
+      setExtend(false);
+    }
+  }, [display]);
+
   return (
-    <div className="home">
-      <Card
-        display={props.displayCard && !!props.currentEvent}
-        currentEvent={props.currentEvent}
-        stopAnimation={props.stopAnimation}
-        startAnimation={props.startAnimation}
-      />
+    <div
+      className={extend ? "home home--blur" : "home"}
+      onClick={() => setExtend(false)}
+    >
+      <div className="home__card">
+        <Card
+          display={display}
+          currentEvent={props.currentEvent}
+          setExtend={setExtend}
+          extend={extend}
+        />
+      </div>
+
       <div className="home__slider">
         <Slider
           styles={{
@@ -25,9 +48,10 @@ function Home(props) {
               backgroundColor: "transparent",
             },
             thumb: {
-              height: "7rem",
+              height: "6rem",
               width: "2rem",
-              borderRadius: 0,
+              borderRadius: 5,
+              backgroundColor: "#39ff15",
             },
           }}
           axis="x"
@@ -35,6 +59,7 @@ function Home(props) {
           onChange={props.onChange}
           onDragStart={props.onDragStart}
           onDragEnd={props.onDragEnd}
+          disabled={extend}
         />
       </div>
     </div>

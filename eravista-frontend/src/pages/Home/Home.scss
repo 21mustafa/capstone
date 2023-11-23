@@ -2,14 +2,24 @@
 
 .home {
     @include view;
+    &--blur {
+        backdrop-filter: blur(4px);
+    }
 
     &__slider {
         position: fixed;
-        bottom: -4rem;
+        bottom: 0;
         left: 50%;
         transform: translateX(-50%);
         width: 100vw;
         height: 7rem;
         background-color: #383838;
+    }
+
+    &__card {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 4rem;
     }
 }
