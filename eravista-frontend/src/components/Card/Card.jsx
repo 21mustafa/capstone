@@ -7,10 +7,6 @@ import { useNavigate } from "react-router-dom";
 function Card(props) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.body.style.overflow = "scroll";
-  }, []);
-
   const toggleDetail = async () => {
     props.setExtend((value) => !value);
   };
@@ -96,7 +92,7 @@ function Card(props) {
         </div>
         {props.extend && (
           <button
-            className="card__edir"
+            className="card__edit"
             onClick={() => navigate(`/edit/${props.currentEvent.id}`)}
           >
             Edit

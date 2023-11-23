@@ -34,6 +34,25 @@
         }
     }
 
+    &__edit {
+        width: 100%;
+        border: 1px solid white;
+        background: transparent;
+        border-radius: 10px;
+        height: 2.5rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            color: #a9b3d1;
+            background: white;
+        }
+    }
+
     &__content {
         background-color: #aab4d0e8;
         backdrop-filter: blur(3px);
@@ -125,9 +144,6 @@
                 border-bottom: 1px solid white;
                 padding-bottom: 0.5rem;
                 font-size: 1.75rem;
-            }
-
-            &-container {
             }
         }
     }
