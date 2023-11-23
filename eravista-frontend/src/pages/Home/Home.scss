@@ -2,4 +2,14 @@
 
 .home {
     @include view;
+
+    &__slider {
+        position: fixed;
+        bottom: -4rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 7rem;
+        background-color: #383838;
+    }
 }

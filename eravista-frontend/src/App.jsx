@@ -16,7 +16,6 @@ import debounce from "lodash.debounce";
 import * as THREE from "three";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
-import Slider from "react-input-slider";
 
 axios.defaults.baseURL = "http://localhost:8000";
 
@@ -35,6 +34,7 @@ function App() {
   const environment = useRef();
 
   const onScroll = (position) => {
+    console.log(position);
     if (position > labelSpace - 750) {
       return;
     }
@@ -81,15 +81,13 @@ function App() {
   const debouncedScrollHandler = debounce((position) => {
     setIsLoading(false);
     setCurrentPosition(position);
-  }, 50);
+  }, 250);
 
   useEffect(() => {
     void retrieveTimeline();
   }, []);
 
-  useEffect(() => {
-    console.log(sliderX);
-  }, [sliderX]);
+  useEffect(() => {}, [sliderX]);
 
   useEffect(() => {
     for (let element of timelinePositions) {
@@ -159,42 +157,32 @@ function App() {
         currentEvent={currentEvent}
         stopAnimation={environment.current?.stopAnimation}
         startAnimation={environment.current?.startAnimation}
-      />
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          zIndex: 100,
-          display: "block",
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          backgroundColor: "transparent",
-          height: "calc(100vh - 8rem)",
-          margin: "4rem 0",
-        }}
-      >
-        <Slider axis="x" x={sliderX} onChange={({ x }) => setSliderX(x)} />
-        <button
-          onClick={() => {
-            environment.current.stopAnimation();
-
-            const targetLerp = environment.current.getLerpFromPosition(
+        sliderX={sliderX}
+        onChange={({ x }) => {
+          if (environment.current) {
+            const max = environment.current.getLerpFromPosition(
               timelinePositions[timelinePositions.length - 1].position + 175
             );
 
-            console.log(targetLerp);
+            const min = 0;
+
+            const a = (max - min) / 100;
+            const b = min;
+
             environment.current.lerp = environment.current.calculatePosition({
               current: environment.current.lerp.current,
-              target: targetLerp,
+              target: a * x + b,
               ease: 0.1,
             });
-
-            environment.current.startAnimation();
-          }}
-        >
-          wwww
-        </button>
-      </div>
+            setSliderX(x);
+          }
+        }}
+        onDragStart={() => {
+          setIsLoading(true);
+          setCurrentEvent(null);
+        }}
+        onDragEnd={() => setIsLoading(false)}
+      />
     </TimelineContext.Provider>
   );
 }

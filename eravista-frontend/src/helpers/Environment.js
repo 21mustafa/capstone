@@ -226,9 +226,12 @@ export class Environment {
     return 1 - zPosition / this.curve.getLength();
   };
 
+  getLerpFromSlider = (slidePosition) => {
+    return slidePosition;
+  };
+
   moveCameraAlongTheCurve = () => {
     const result = this.calculatePosition({ ...this.lerp });
-
     if (result) {
       this.lerp = result;
       // getAtPoint function copies the [this.progress]th position to the given vector variable
