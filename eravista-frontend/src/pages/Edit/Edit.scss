@@ -1,0 +1,180 @@
+body {
+    // overflow: scroll;
+}
+.edit {
+    margin: 5rem 12rem;
+    &__header {
+        font-size: 5rem;
+        font-weight: 300;
+
+        &-year {
+            margin-left: 1rem;
+        }
+    }
+
+    &__short-description {
+        font-size: 2rem;
+        font-weight: 500;
+        margin-bottom: 3rem;
+        width: 100%;
+    }
+
+    &__long-description {
+        font-size: 1.5rem;
+        line-height: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    &__video {
+        margin-bottom: 3rem;
+        iframe {
+            min-width: 60rem;
+            min-height: 35rem;
+            max-width: 80rem;
+            max-height: 45rem;
+            border-radius: 10px;
+        }
+
+        &-url {
+            display: block;
+            margin-bottom: 3rem;
+            height: 4rem;
+            font-size: 1.5rem;
+            padding: 0 2rem;
+            width: calc(100% - 4rem);
+            border-radius: 10px;
+            outline: none;
+            border: 1px solid #c6c6c6;
+            max-width: 55rem;
+        }
+    }
+
+    &__label {
+        font-size: 3rem;
+        font-weight: 300;
+        border-bottom: 1px solid black;
+        width: 100%;
+        display: block;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+
+    &__ref {
+        &-item {
+            font-size: 1.5rem;
+
+            a {
+                font-size: 1.5rem;
+                line-height: 2.5rem;
+            }
+        }
+
+        &-add {
+            border-radius: 15px;
+            padding: 0.75rem 0.75rem;
+            outline: none;
+            border: none;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            gap: 1rem;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            transition: all 0.2s;
+            margin-left: 2rem;
+
+            &-icon {
+                background-color: black;
+                color: white;
+                border-radius: 50%;
+                width: 2rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s;
+            }
+
+            &:hover {
+                background-color: black;
+                color: white;
+                .edit__ref-add-icon {
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+
+        &-new {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            display: flex;
+            align-items: center;
+            &-fields {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            &-field {
+                font-size: 1.5rem;
+                input {
+                    margin-left: 1rem;
+                    border-radius: 10px;
+                    outline: none;
+                    border: 1px solid #c6c6c6;
+                    padding: 0.5rem;
+                    width: 25rem;
+                }
+            }
+        }
+    }
+
+    &__action {
+        position: sticky;
+        bottom: 0;
+        height: 5rem;
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+
+        &-button--main {
+            width: 100%;
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 3rem;
+            background: black;
+            color: white;
+            transition: all 0.2s;
+            font-size: 1.5rem;
+            cursor: pointer;
+
+            &:hover {
+                background: rgb(60, 60, 60);
+            }
+        }
+
+        &-button {
+            width: 100%;
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 3rem;
+            background: white;
+            color: black;
+            transition: all 0.2s;
+            font-size: 1.5rem;
+            cursor: pointer;
+
+            &:hover {
+                background: rgb(60, 60, 60);
+                color: white;
+            }
+        }
+    }
+}

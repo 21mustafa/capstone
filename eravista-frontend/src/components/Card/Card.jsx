@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./Card.scss";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Card(props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.style.overflow = "scroll";
+  }, []);
+
   const toggleDetail = async () => {
     props.setExtend((value) => !value);
   };
@@ -41,7 +48,7 @@ function Card(props) {
               ></iframe>
             </div>
           </div>
-
+          {/* 
           <div className="card__detail-picture">
             <div className="card__detail-picture-label">View Photos</div>
             <div className="card__detail-picture-container">
@@ -63,7 +70,7 @@ function Card(props) {
                 </div>
               </Carousel>
             </div>
-          </div>
+          </div> */}
 
           {refs && refs.length > 0 && (
             <div className="card__detail-refs">
@@ -87,6 +94,14 @@ function Card(props) {
             </div>
           )}
         </div>
+        {props.extend && (
+          <button
+            className="card__edir"
+            onClick={() => navigate(`/edit/${props.currentEvent.id}`)}
+          >
+            Edit
+          </button>
+        )}
       </div>
       <button
         className={"card__more-button"}
