@@ -17,7 +17,6 @@
     }
 
     &.extend {
-        min-height: 65rem;
         max-height: 75rem;
         .card__more-button {
             .fa-chevron-down {
@@ -25,27 +24,28 @@
             }
         }
 
-        .card__detail-video {
-            height: 30rem;
-        }
-
         .card__detail-picture {
             height: 44rem;
+        }
+
+        .card__detail-more {
         }
     }
 
     &__edit {
-        width: 100%;
         border: 1px solid white;
         background: transparent;
-        border-radius: 10px;
-        height: 2.5rem;
+        border-radius: 50%;
+        height: 3rem;
+        width: 3rem;
         color: white;
         font-size: 1.5rem;
         font-weight: 600;
-        margin-top: 2rem;
         cursor: pointer;
         transition: all 0.2s;
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
 
         &:hover {
             color: #a9b3d1;
@@ -64,7 +64,7 @@
         max-height: 66rem;
         overflow: scroll;
         &.extend {
-            min-height: 56rem;
+            // min-height: 56rem;
             max-height: 66rem;
         }
     }
@@ -98,16 +98,22 @@
             }
         }
 
-        &-video {
+        .card__detail-more {
+            overflow: hidden;
+            height: 0;
             transition: height 0.5s;
+        }
+
+        &-video {
+            // transition: height 0.5s;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            height: 0;
+            // height: 0;
             &-container {
                 overflow: hidden;
                 border-radius: 20px;
-                height: 100%;
+                height: 25rem;
             }
 
             &-label {

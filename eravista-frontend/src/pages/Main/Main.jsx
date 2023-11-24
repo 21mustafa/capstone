@@ -16,11 +16,9 @@ import { Timeline } from "../../helpers/Timeline";
 import debounce from "lodash.debounce";
 import * as THREE from "three";
 import Home from "../Home/Home";
-import { useNavigate } from "react-router-dom";
 
 function Main() {
   const timeline = useContext(TimelineContext);
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [timelinePositions, setTimelinePositions] = useState([]);
