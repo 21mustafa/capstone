@@ -42,6 +42,9 @@ function Edit() {
 
   return event ? (
     <div className="edit">
+      <button className="edit__close" onClick={() => navigate("/")}>
+        <i class="fa-solid fa-x"></i>
+      </button>
       <h1 className="edit__header">
         <span>{event.date}</span>
         <span className="edit__header-year">{event.year}</span>
@@ -49,20 +52,24 @@ function Edit() {
       <div className="edit__short-description" role="textbox" contenteditable>
         {event.description}
       </div>
-      <div className="edit__long-description" role="textbox" contenteditable>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla odit esse
-        quas autem voluptate omnis animi incidunt? Aliquam quaerat quos incidunt
-        deserunt adipisci laborum, impedit asperiores. Odio debitis ratione
-        impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum
-        obcaecati temporibus ea est soluta neque at illo nam provident vitae
-        dolores optio, eveniet iusto corrupti? Placeat ratione recusandae at
-        officiis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-        blanditiis voluptates cum aut, hic ipsum magni sit dolorem, ullam,
-        labore dicta laborum debitis dolorum quaerat sint id iusto molestias
-        esse? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis obcaecati similique dolor nihil tempore expedita esse nam,
-        in beatae consectetur. Odio veniam sapiente amet voluptatum fugiat quam
-        a commodi fuga.
+
+      <div>
+        <div className="edit__label">Notes</div>
+        <div className="edit__long-description" role="textbox" contenteditable>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla odit
+          esse quas autem voluptate omnis animi incidunt? Aliquam quaerat quos
+          incidunt deserunt adipisci laborum, impedit asperiores. Odio debitis
+          ratione impedit. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Earum obcaecati temporibus ea est soluta neque at illo nam
+          provident vitae dolores optio, eveniet iusto corrupti? Placeat ratione
+          recusandae at officiis! Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. At blanditiis voluptates cum aut, hic ipsum magni
+          sit dolorem, ullam, labore dicta laborum debitis dolorum quaerat sint
+          id iusto molestias esse? Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Perspiciatis obcaecati similique dolor nihil tempore
+          expedita esse nam, in beatae consectetur. Odio veniam sapiente amet
+          voluptatum fugiat quam a commodi fuga.
+        </div>
       </div>
 
       <div className="edit__video">
