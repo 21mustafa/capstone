@@ -15,7 +15,7 @@ function Edit() {
 
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState("");
-  const [videoURL, setVideoURL] = useState("");
+  // const [videoURL, setVideoURL] = useState("");
   const [refList, setRefList] = useState([]);
 
   const [reference, setReference] = useState({});
@@ -48,7 +48,7 @@ function Edit() {
       );
       setDescription(data.eventData.description);
       setRefList(data.eventData.refs);
-      setVideoURL(data.eventData.videoURL);
+      // setVideoURL(data.eventData.videoURL);
       setNotes(data.eventData.notes);
       setEvent({
         ...data.eventData,
@@ -95,7 +95,7 @@ function Edit() {
         />
       </div>
 
-      <div className="edit__video">
+      {/* <div className="edit__video">
         <label>
           <span className="edit__label">Video</span>
 
@@ -119,7 +119,7 @@ function Edit() {
             allowFullScreen
           ></iframe>
         )}
-      </div>
+      </div> */}
 
       <div className="edit__ref">
         <div className="edit__label">References</div>
@@ -142,7 +142,7 @@ function Edit() {
                   onClick={() => {
                     const filteredList = [...refList].filter(
                       (refItem) =>
-                        ref.title !== refItem.title && ref.link !== refItem.link
+                        ref.name !== refItem.name && ref.link !== refItem.link
                     );
                     setRefList(filteredList);
                   }}
@@ -201,7 +201,7 @@ function Edit() {
                       eventData.notes = notes;
                       eventData.description = description;
                       eventData.refs = refList;
-                      eventData.videoURL = videoURL;
+                      // eventData.videoURL = videoURL;
                       return centuries;
                     }
                   }
@@ -211,6 +211,7 @@ function Edit() {
 
             const data = getData();
             await axios.put("/", data);
+            navigate("/");
           }}
         >
           Save

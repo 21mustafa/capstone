@@ -44,14 +44,15 @@ function Card(props) {
               height: props.extend
                 ? `${
                     (ref.current?.clientHeight ? ref.current.clientHeight : 0) +
-                    (videoRef.current?.clientHeight
-                      ? videoRef.current.clientHeight + 10
-                      : 0)
+                    10
+                    // (videoRef.current?.clientHeight
+                    //   ? videoRef.current.clientHeight + 10
+                    //   : 0)
                   }px`
                 : "0",
             }}
           >
-            <div className="card__detail-video" ref={videoRef}>
+            {/* <div className="card__detail-video" ref={videoRef}>
               <div className="card__detail-video-label">Learn More</div>
               <div className="card__detail-video-container">
                 <iframe
@@ -64,7 +65,7 @@ function Card(props) {
                   allowfullscreen
                 ></iframe>
               </div>
-            </div>
+            </div> */}
 
             {refs && refs.length > 0 && (
               <div className="card__detail-refs" ref={ref}>

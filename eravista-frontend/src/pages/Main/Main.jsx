@@ -36,6 +36,7 @@ function Main() {
     if (position > labelSpace - 750) {
       return;
     }
+
     for (let i = 0; i < timelinePositions.length; i++) {
       if (i + 1 === timelinePositions.length) {
         setCurrentEvent(timelinePositions[i]);
@@ -53,6 +54,7 @@ function Main() {
 
       const pointA = timelinePositions[i];
       const pointB = timelinePositions[i + 1];
+
       if (pointB.position < position && position < pointA.position) {
         setCurrentEvent(pointB);
         break;
@@ -72,8 +74,8 @@ function Main() {
       preEventBox.current.material.color = new THREE.Color("#39FF14");
     }
     if (currentEvent) {
-      boxes.current[currentEvent.id].material.color.setHex(0xffffff);
-      preEventBox.current = boxes.current[currentEvent.id];
+      boxes.current[currentEvent._id].material.color.setHex(0xffffff);
+      preEventBox.current = boxes.current[currentEvent._id];
     }
   }, [currentEvent]);
 
@@ -90,7 +92,7 @@ function Main() {
   const debouncedScrollHandler = debounce((position) => {
     setIsLoading(false);
     setCurrentPosition(position);
-  }, 250);
+  }, 150);
 
   useEffect(() => {}, [sliderX]);
 
@@ -103,7 +105,7 @@ function Main() {
       cube.position.y = -25;
       environment.current.scene.add(cube);
 
-      boxes.current[element.id] = cube;
+      boxes.current[element._id] = cube;
     }
   }, [timelinePositions]);
 
