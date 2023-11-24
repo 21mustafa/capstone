@@ -21,14 +21,13 @@ function Card(props) {
     (ref) => ref.link && !ref.link.includes("#cite_ref")
   );
 
-  console.log(ref.current?.clientHeight, videoRef.current?.clientHeight);
   const year = props.currentEvent?.year;
   return (
     <div className={className} onClick={(e) => e.stopPropagation()}>
       <div className={`card__content ${props.extend ? "extend" : ""}`}>
         <button
           className="card__edit"
-          onClick={() => navigate(`/edit/${props.currentEvent.id}`)}
+          onClick={() => navigate(`/edit/${props.currentEvent._id}`)}
         >
           <i class="fa-solid fa-pen"></i>
         </button>

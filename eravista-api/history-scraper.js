@@ -186,10 +186,11 @@ export const parseTimeline = async () => {
           year: event.year ? event.year : `?${event.date}`,
           events: [
             {
-              id: uuidv4(),
               description: event.event,
               refs: event.refs,
               date: event.date,
+              videoURL: "",
+              notes: "",
             },
           ],
         };

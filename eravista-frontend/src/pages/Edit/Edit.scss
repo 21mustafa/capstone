@@ -38,12 +38,23 @@
         margin-bottom: 3rem;
         width: 100%;
         line-height: 3rem;
+        font-family: inherit;
+        border-radius: 10px;
+        border: 1px solid #c6c6c6;
+        padding: 1rem 2rem;
+        width: calc(100% - 4rem);
     }
 
     &__long-description {
         font-size: 1.5rem;
         line-height: 2.5rem;
         margin-bottom: 3rem;
+        width: 100%;
+        font-family: inherit;
+        border-radius: 10px;
+        border: 1px solid #c6c6c6;
+        padding: 1rem 2rem;
+        width: calc(100% - 4rem);
     }
 
     &__video {
@@ -66,7 +77,6 @@
             border-radius: 10px;
             outline: none;
             border: 1px solid #c6c6c6;
-            max-width: 55rem;
         }
     }
 
@@ -87,6 +97,32 @@
             a {
                 font-size: 1.5rem;
                 line-height: 2.5rem;
+            }
+
+            &-content {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+        }
+
+        &-delete {
+            border: none;
+            background: transparent;
+            color: #b00000;
+
+            cursor: pointer;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            &:hover {
+                background: #b00000;
+                color: white;
             }
         }
 
