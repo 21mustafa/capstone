@@ -15,7 +15,7 @@ mongoose.connect(
 );
 
 app.get("/", async (req, res) => {
-  const timeline = await TimelineModel.find();
+  const timeline = await TimelineModel.find().sort({ index: -1 });
   res.send(timeline);
 });
 

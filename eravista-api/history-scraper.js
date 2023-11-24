@@ -118,6 +118,7 @@ export const parseTimeline = async () => {
     let spanCount;
 
     const events = [];
+
     for (let tableRow of tableRows) {
       const tableData = tableRow.getElementsByTagName("td");
       if (tableData.length > 0 && tableData[0].getAttribute("rowspan")) {
@@ -168,7 +169,8 @@ export const parseTimeline = async () => {
 
     const finalEvents = [];
     const revertEvents = events.reverse();
-
+    let yearIndex = 0;
+    let eventIndex = 0;
     for (let event of revertEvents) {
       const obj = finalEvents.find((item) => item.year === event.year);
 
@@ -176,11 +178,12 @@ export const parseTimeline = async () => {
         finalEvents
           .find((item) => item.year === event.year)
           .events.push({
-            id: uuidv4(),
             description: event.event,
             refs: event.refs,
             date: event.date,
+            index: eventIndex,
           });
+        eventIndex++;
       } else {
         const eventObj = {
           year: event.year ? event.year : `?${event.date}`,
@@ -191,8 +194,10 @@ export const parseTimeline = async () => {
               date: event.date,
               videoURL: "",
               notes: "",
+              index: 0,
             },
           ],
+          index: yearIndex,
         };
         finalEvents.push(eventObj);
       }
@@ -202,6 +207,7 @@ export const parseTimeline = async () => {
       century,
       links: centuryLink?.link,
       events: finalEvents,
+      index: i,
     });
   }
 

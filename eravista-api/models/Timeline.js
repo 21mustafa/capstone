@@ -2,15 +2,18 @@ import mongoose from "mongoose";
 
 const timelineSchema = new mongoose.Schema({
   century: String,
+  index: Number,
   events: [
     {
       year: String,
+      index: Number,
       events: [
         {
           date: String,
           description: String,
           videoURL: String,
           notes: String,
+          index: Number,
           refs: [
             {
               link: String,
