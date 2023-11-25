@@ -2,37 +2,25 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import "./Home.scss";
 import Slider from "react-input-slider";
+import PhotoCard from "../../components/PhotoCard/PhotoCard";
 
 function Home(props) {
-  const [extend, setExtend] = useState(false);
   const display = props.displayCard && !!props.currentEvent;
-
-  useEffect(() => {
-    if (extend) {
-      props?.stopAnimation && props?.stopAnimation();
-    } else {
-      props?.startAnimation && props?.startAnimation();
-    }
-  }, [extend]);
-
-  useEffect(() => {
-    if (display) {
-      setExtend(false);
-    }
-  }, [display]);
-
+  const [showImages, setShowImages] = useState(false);
   return (
-    <div
-      className={extend ? "home home--blur" : "home"}
-      onClick={() => setExtend(false)}
-    >
+    <div className={showImages ? "home disable" : "home"}>
       <div className="home__card">
-        <Card
-          display={display}
-          currentEvent={props.currentEvent}
-          setExtend={setExtend}
-          extend={extend}
-        />
+        <div className="home__card-content">
+          <Card display={display} currentEvent={props.currentEvent} />
+          <PhotoCard
+            display={display}
+            currentEvent={props.currentEvent}
+            stopAnimation={props.stopAnimation}
+            startAnimation={props.startAnimation}
+            setShowImages={setShowImages}
+            showImages={showImages}
+          />
+        </div>
       </div>
 
       <div className="home__slider">
@@ -59,7 +47,7 @@ function Home(props) {
           onChange={props.onChange}
           onDragStart={props.onDragStart}
           onDragEnd={props.onDragEnd}
-          disabled={extend}
+          disabled={showImages}
         />
       </div>
     </div>

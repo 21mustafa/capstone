@@ -1,0 +1,51 @@
+.photo-card {
+    height: fit-content;
+    transition: transform 0.25s, min-height 0.5s;
+    background-color: transparent;
+    transform: scale(1);
+    min-height: 10rem;
+    height: 100vh;
+    background-color: transparent;
+
+    &.expand {
+        .photo-card__container {
+            overflow-y: scroll;
+            &-item {
+                top: 0 !important;
+                transform: rotate(0deg) !important;
+            }
+        }
+    }
+
+    &.collapse {
+        transform: scale(0);
+    }
+
+    &__container {
+        position: relative;
+        height: calc(100vh - 14rem);
+        padding: 7rem 2rem;
+        overflow-y: none;
+
+        &-item {
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.5s;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            img {
+                width: 25rem;
+                transition: width 0.2s;
+                float: right;
+                border-radius: 10px;
+            }
+
+            &.expand-image {
+                img {
+                    width: 70rem;
+                }
+            }
+        }
+    }
+}

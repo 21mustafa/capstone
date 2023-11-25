@@ -18,16 +18,17 @@ export class Environment {
     this.createRenderer();
     // scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color("#F4F4F4");
+    this.scene.background = new THREE.Color("#000000");
 
     this.createCamera();
     this.createControls();
 
-    // reflectors/mirrors
-    // this.createMirror();
-
     // walls
     this.createWalls();
+
+    // img
+
+    this.createBG();
 
     // lights
     this.createLight();
@@ -114,15 +115,18 @@ export class Environment {
   createWalls = () => {
     this.planeBottom = new THREE.Mesh(
       new THREE.PlaneGeometry(100, pathLength),
-      new THREE.MeshBasicMaterial({ color: "#AAB4D0" })
+      new THREE.MeshBasicMaterial({ color: "#383838" })
     );
     this.planeBottom.position.y = -30;
     this.planeBottom.position.z = pathLength * 1.5;
     this.planeBottom.rotateX(-Math.PI / 2);
     this.scene.add(this.planeBottom);
 
+    // reflectors/mirrors
+    // this.createMirror();
+
     const geometry = new THREE.BoxGeometry(3, 3, pathLength - 550);
-    const material = new THREE.MeshBasicMaterial({ color: "#A9A9A9" });
+    const material = new THREE.MeshBasicMaterial({ color: "#dbd1c4" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
     this.cube.position.z = startingPoint;
@@ -150,13 +154,6 @@ export class Environment {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // this.mirror
-    //   .getRenderTarget()
-    //   .setSize(
-    //     window.innerWidth * window.devicePixelRatio,
-    //     window.innerHeight * window.devicePixelRatio
-    //   );
 
     // this.planeBottom
     //   .getRenderTarget()
@@ -230,6 +227,17 @@ export class Environment {
     return slidePosition;
   };
 
+  createBG = () => {
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load(require("./bg12.jpg"));
+
+    this.bg = new THREE.PlaneGeometry(1000, 700);
+    this.bgMaterial = new THREE.MeshBasicMaterial({ map: texture });
+
+    this.bgMesh = new THREE.Mesh(this.bg, this.bgMaterial);
+    this.bgMesh.position.set(0, 200, startingPoint - 800);
+    this.scene.add(this.bgMesh);
+  };
   moveCameraAlongTheCurve = () => {
     const result = this.calculatePosition({ ...this.lerp });
     if (result) {
@@ -238,6 +246,7 @@ export class Environment {
       const prevPosition = this.position.z;
       this.curve.getPointAt(this.lerp.current, this.position);
       this.camera.position.copy(this.position);
+      this.bgMesh.position.set(0, 150, this.position.z - 1400);
 
       if (prevPosition.toFixed(0) !== this.position.z.toFixed(0)) {
         this.onScroll(this.camera.position.z);

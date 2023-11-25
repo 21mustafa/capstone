@@ -2,7 +2,10 @@
 
 .home {
     @include view;
-    &--blur {
+    transition: all 0.5s;
+
+    &.disable {
+        background-color: #000000a6;
         backdrop-filter: blur(4px);
     }
 
@@ -18,8 +21,12 @@
 
     &__card {
         position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 4rem;
+        left: 0;
+        width: 100%;
+
+        &-content {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }

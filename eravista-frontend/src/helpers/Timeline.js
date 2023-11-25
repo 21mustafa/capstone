@@ -56,7 +56,7 @@ export class Timeline {
         );
 
         const material = new THREE.LineBasicMaterial({
-          color: "#A9A9A9",
+          color: "#b11411",
         });
         const points = [];
         points.push(new THREE.Vector3(50, -25, centurySpace));
