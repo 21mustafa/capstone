@@ -34,17 +34,20 @@
         padding: 2rem 2rem;
         overflow-y: none;
         width: 50rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
 
         @include desktop {
             width: 70rem;
-            height: calc(100vh - 14rem);
+            height: calc(100vh - 12rem);
         }
 
         &-item {
             overflow: hidden;
             border-radius: 10px;
             position: relative;
-            transition: all 0.5s;
+            transition: all 0.2s;
             margin-bottom: 1rem;
             cursor: pointer;
             img {
@@ -54,7 +57,7 @@
                 border-radius: 10px;
                 height: 15rem;
                 object-fit: cover;
-                transition: all 0.5s;
+                transition: all 0.2s;
                 @include desktop {
                     float: right;
                 }

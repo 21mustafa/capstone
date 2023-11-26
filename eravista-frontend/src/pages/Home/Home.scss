@@ -2,7 +2,7 @@
 
 .home {
     @include view;
-    transition: all 0.5s;
+    transition: background-color 0.5s;
 
     &.disable {
         background-color: #000000a6;
@@ -54,6 +54,11 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
             z-index: 2;
             position: relative;
+
+            &:disabled {
+                color: #5b5b5b;
+                cursor: not-allowed;
+            }
         }
     }
 }

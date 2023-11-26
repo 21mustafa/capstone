@@ -18,6 +18,7 @@ function Home(props) {
         <button
           className="home__filter-button"
           onClick={() => setShowFilter((value) => !value)}
+          disabled={showImages}
         >
           Find a historical event
         </button>
@@ -39,6 +40,7 @@ function Home(props) {
             startAnimation={props.startAnimation}
             setShowImages={setShowImages}
             showImages={showImages}
+            disabled={showFilter}
           />
         </div>
       </div>

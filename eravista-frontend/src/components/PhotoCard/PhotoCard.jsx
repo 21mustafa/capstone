@@ -10,7 +10,7 @@ const randomNums = Array.from({ length: 10 }, () => getRandomNumber(-2, 2));
 const ImageItem = (props) => {
   return (
     <div
-      className={`photo-card__container-item `}
+      className={`photo-card__container-item`}
       style={{
         top: `${top * props.i}rem`,
         transform: `rotate(${randomNums[props.i]}deg)`,
@@ -49,12 +49,14 @@ function PhotoCard(props) {
         className="photo-card__container"
         onClick={(e) => {
           e.stopPropagation();
-          if (!props.showImages) {
-            props?.stopAnimation && props?.stopAnimation();
-          } else {
-            props?.startAnimation && props?.startAnimation();
+          if (!props.disabled && props.currentEvent.images.length > 0) {
+            if (!props.showImages) {
+              props?.stopAnimation && props?.stopAnimation();
+            } else {
+              props?.startAnimation && props?.startAnimation();
+            }
+            props.setShowImages((value) => !value);
           }
-          props.setShowImages((value) => !value);
         }}
       >
         <ImageAlbum
