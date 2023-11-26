@@ -40,12 +40,12 @@ function Filter(props) {
   const [eventFilter, setEventFilter] = useState();
 
   useEffect(() => {
-    if (props.timeline) {
+    if (props.timeline && props.open) {
       setCenturyFilter(props.timeline[0]?.century);
       setYearFilter(props.timeline[0]?.events[0]?.year);
       setEventFilter(props.timeline[0]?.events[0]?.events[0].date);
     }
-  }, [props.timeline]);
+  }, [props.timeline, props.open]);
 
   useEffect(() => {
     if (eventFilter) {
@@ -53,7 +53,7 @@ function Filter(props) {
     }
   }, [eventFilter]);
   return (
-    <div className="filter">
+    <div className={`filter ${props.open ? "filter--open" : ""}`}>
       <FilterSection
         elements={
           props.timeline

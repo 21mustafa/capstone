@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./PhotoCard.scss";
 
-const top = -16.5;
+const top = -16;
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-const randomNums = Array.from({ length: 10 }, () => getRandomNumber(-3, 3));
+const randomNums = Array.from({ length: 10 }, () => getRandomNumber(-2, 2));
 
 const ImageItem = (props) => {
   return (

@@ -167,7 +167,6 @@ function Main() {
 
   const onSearchChange = (eventFilter) => {
     if (environment.current) {
-      console.log(timelinePositions);
       const position = timelinePositions.find(
         (item) => item.date === eventFilter
       ).position;
@@ -176,9 +175,6 @@ function Main() {
         position + 175
       );
 
-      // const min = 0;
-      // const a = (max - min) / 100;
-      // const b = min;
       environment.current.lerp = environment.current.calculatePosition({
         current: environment.current.lerp.current,
         target: targetLerp,

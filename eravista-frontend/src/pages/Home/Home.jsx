@@ -21,9 +21,12 @@ function Home(props) {
         >
           Find a historical event
         </button>
-        {showFilter && (
-          <Filter timeline={timeline} goToEvent={props.goToEvent} />
-        )}
+
+        <Filter
+          timeline={timeline}
+          goToEvent={props.goToEvent}
+          open={showFilter}
+        />
       </div>
 
       <div className="home__card">

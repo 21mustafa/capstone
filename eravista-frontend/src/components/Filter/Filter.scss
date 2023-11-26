@@ -4,6 +4,13 @@
     color: white;
     padding: 2rem 2rem 2rem 2rem;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    transform: translateY(-70rem);
+    transition: transform 0.2s;
+    z-index: 1;
+    position: relative;
+    &.filter--open {
+        transform: translateY(0);
+    }
 
     &__section {
         padding-right: 9rem;

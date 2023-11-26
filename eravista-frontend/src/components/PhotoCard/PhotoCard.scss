@@ -18,6 +18,7 @@
 
                 img {
                     width: 50rem;
+                    height: 30rem;
                 }
             }
         }
@@ -36,7 +37,6 @@
 
         @include desktop {
             width: 70rem;
-            padding: 7rem 2rem;
             height: calc(100vh - 14rem);
         }
 
@@ -52,7 +52,9 @@
                 transition: width 0.2s;
                 float: left;
                 border-radius: 10px;
-
+                height: 15rem;
+                object-fit: cover;
+                transition: all 0.5s;
                 @include desktop {
                     float: right;
                 }
