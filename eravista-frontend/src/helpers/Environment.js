@@ -125,7 +125,7 @@ export class Environment {
     // reflectors/mirrors
     // this.createMirror();
 
-    const geometry = new THREE.BoxGeometry(3, 3, pathLength - 550);
+    const geometry = new THREE.BoxGeometry(0.5, 0.5, pathLength - 550);
     const material = new THREE.MeshBasicMaterial({ color: "#dbd1c4" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
@@ -142,7 +142,7 @@ export class Environment {
     const points = this.curve.getPoints(2);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const material = new THREE.LineBasicMaterial({
-      color: "#3aa3ff",
+      color: "#000000",
       linewidth: 9,
     });
     const curveObject = new THREE.Line(geometry, material);

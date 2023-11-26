@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./PhotoCard.scss";
-import img1 from "./bg.jpeg";
 
 const top = -16.5;
 const getRandomNumber = (min, max) => {
@@ -17,7 +16,10 @@ const ImageItem = (props) => {
         transform: `rotate(${randomNums[props.i]}deg)`,
       }}
     >
-      <img src={img1} />
+      <img
+        src={`http://127.0.0.1:8000/uploads/${props.image}`}
+        alt="event images"
+      />
     </div>
   );
 };
@@ -25,9 +27,11 @@ const ImageItem = (props) => {
 const ImageAlbum = (props) => {
   const getImages = () => {
     const imgs = [];
-    for (let i = 0; i < 10; i++) {
-      imgs.push(<ImageItem i={i} showImages={props.showImages} />);
-    }
+
+    return props.images.map((image, i) => {
+      return <ImageItem i={i} showImages={props.showImages} image={image} />;
+    });
+
     return imgs;
   };
 
@@ -35,7 +39,7 @@ const ImageAlbum = (props) => {
 };
 
 function PhotoCard(props) {
-  return (
+  return props.currentEvent ? (
     <div
       className={`photo-card ${props.display ? "" : "collapse"} ${
         props.showImages ? "expand" : ""
@@ -53,10 +57,13 @@ function PhotoCard(props) {
           props.setShowImages((value) => !value);
         }}
       >
-        <ImageAlbum showImages={props.showImages} />
+        <ImageAlbum
+          showImages={props.showImages}
+          images={props.currentEvent.images}
+        />
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default PhotoCard;

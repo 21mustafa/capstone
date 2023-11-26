@@ -70,7 +70,7 @@ function Edit() {
       setRefList(data.eventData.refs);
       setNotes(data.eventData.notes);
       setPhotos(data.eventData.images);
-      // TODO delete this
+
       setEvent({
         ...data.eventData,
         refs,
@@ -169,7 +169,7 @@ function Edit() {
                   <div className="edit__image-item">
                     <img
                       src={`http://127.0.0.1:8000/uploads/${image}`}
-                      alt=""
+                      alt="event image"
                     />
                     <button onClick={() => deleteImage(image)}>
                       <i class="fa-solid fa-x"></i>
