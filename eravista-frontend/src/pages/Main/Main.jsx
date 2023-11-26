@@ -31,7 +31,6 @@ function Main() {
   const boxes = useRef({});
   const preEventBox = useRef(null);
   const environment = useRef();
-
   const onScroll = (position) => {
     if (position > labelSpace - 750) {
       return;
@@ -93,8 +92,6 @@ function Main() {
     setIsLoading(false);
     setCurrentPosition(position);
   }, 150);
-
-  useEffect(() => {}, [sliderX]);
 
   useEffect(() => {
     for (let element of timelinePositions) {
@@ -168,6 +165,28 @@ function Main() {
     }
   };
 
+  const onSearchChange = (eventFilter) => {
+    if (environment.current) {
+      console.log(timelinePositions);
+      const position = timelinePositions.find(
+        (item) => item.date === eventFilter
+      ).position;
+
+      const targetLerp = environment.current.getLerpFromPosition(
+        position + 175
+      );
+
+      // const min = 0;
+      // const a = (max - min) / 100;
+      // const b = min;
+      environment.current.lerp = environment.current.calculatePosition({
+        current: environment.current.lerp.current,
+        target: targetLerp,
+        ease: 0.1,
+      });
+    }
+  };
+
   return (
     <>
       <div id="container"></div>
@@ -189,6 +208,7 @@ function Main() {
           setCurrentEvent(null);
         }}
         onDragEnd={() => setIsLoading(false)}
+        goToEvent={onSearchChange}
       />
     </>
   );

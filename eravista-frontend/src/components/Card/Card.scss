@@ -32,6 +32,10 @@
         gap: 0.5rem;
         justify-content: center;
         margin-bottom: 2rem;
+        position: absolute;
+        z-index: 1;
+        right: 1rem;
+        top: 3rem;
 
         &:hover {
             background: rgb(120 9 4 / 68%);

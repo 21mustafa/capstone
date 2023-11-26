@@ -223,10 +223,6 @@ export class Environment {
     return 1 - zPosition / this.curve.getLength();
   };
 
-  getLerpFromSlider = (slidePosition) => {
-    return slidePosition;
-  };
-
   createBG = () => {
     const loader = new THREE.TextureLoader();
     const texture = loader.load(require("./bg12.jpg"));

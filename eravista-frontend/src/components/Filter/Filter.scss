@@ -1,0 +1,48 @@
+.filter {
+    display: flex;
+    background-color: #383838;
+    color: white;
+    padding: 0 2rem 2rem 2rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+    &__section {
+        padding-right: 9rem;
+
+        &-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+
+            margin-right: 2rem;
+
+            label {
+                margin-left: 0.5rem;
+            }
+
+            &-label {
+                width: 35rem;
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-size: 1.15rem;
+                font-weight: 300;
+            }
+        }
+
+        &-label {
+            font-size: 1.5rem;
+            color: #949494;
+            font-weight: 300;
+        }
+
+        &-list {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            max-height: calc(100vh - 50rem);
+        }
+    }
+}
