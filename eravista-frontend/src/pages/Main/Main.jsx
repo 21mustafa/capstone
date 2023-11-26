@@ -168,7 +168,7 @@ function Main() {
   const onSearchChange = (eventFilter) => {
     if (environment.current) {
       const position = timelinePositions.find(
-        (item) => item.date === eventFilter
+        (item) => item._id === eventFilter.id
       ).position;
 
       const targetLerp = environment.current.getLerpFromPosition(
