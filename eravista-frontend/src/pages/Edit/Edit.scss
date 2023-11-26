@@ -1,5 +1,30 @@
+@use "../../styles/mixins" as *;
+
+.uploader {
+    border: 1px dashed #c6c6c6;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    min-width: 10rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+
+    span {
+        color: #4d4d4d;
+        font-size: 2rem;
+    }
+}
+
 .edit {
-    margin: 5rem 12rem;
+    margin: 5rem 10rem;
+
+    @include desktop {
+        margin: 5rem 30rem;
+    }
     &__header {
         font-size: 5rem;
         font-weight: 300;
@@ -37,11 +62,9 @@
         font-weight: 500;
         margin-bottom: 3rem;
         width: 100%;
-        line-height: 3rem;
+        line-height: 3.5rem;
         font-family: inherit;
         border-radius: 10px;
-        border: 1px solid #c6c6c6;
-        padding: 1rem 2rem;
         width: calc(100% - 4rem);
     }
 
@@ -55,29 +78,6 @@
         border: 1px solid #c6c6c6;
         padding: 1rem 2rem;
         width: calc(100% - 4rem);
-    }
-
-    &__video {
-        margin-bottom: 3rem;
-        iframe {
-            min-width: 60rem;
-            min-height: 35rem;
-            max-width: 80rem;
-            max-height: 45rem;
-            border-radius: 10px;
-        }
-
-        &-url {
-            display: block;
-            margin-bottom: 3rem;
-            height: 4rem;
-            font-size: 1.5rem;
-            padding: 0 2rem;
-            width: calc(100% - 4rem);
-            border-radius: 10px;
-            outline: none;
-            border: 1px solid #c6c6c6;
-        }
     }
 
     &__label {
@@ -231,6 +231,57 @@
             &:hover {
                 background: rgb(60, 60, 60);
                 color: white;
+            }
+        }
+    }
+
+    &__image {
+        &-upload {
+            padding: 3rem;
+            border: 1px solid #c6c6c6;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        &-list-container {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        &-item {
+            position: relative;
+            img {
+                width: 20rem;
+                height: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            button {
+                position: absolute;
+                right: 0.5rem;
+                background-color: white;
+                outline: none;
+                border-radius: 50%;
+                width: 2rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 0.5rem;
+                padding: 0.5rem;
+                border: 1px solid black;
+                font-size: 1rem;
+                color: black;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: #b00000;
+                    color: white;
+                    border: 1px solid #b00000;
+                }
             }
         }
     }

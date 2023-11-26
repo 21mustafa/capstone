@@ -2,25 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import "./PhotoCard.scss";
 import img1 from "./bg.jpeg";
 
-const top = -17;
+const top = -16.5;
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-const randomNums = Array.from({ length: 10 }, () => getRandomNumber(-10, 10));
+const randomNums = Array.from({ length: 10 }, () => getRandomNumber(-3, 3));
 
 const ImageItem = (props) => {
-  const [expand, setExpand] = useState(false);
   return (
     <div
-      className={`photo-card__container-item ${
-        expand && props.showImages ? "expand-image" : ""
-      }`}
+      className={`photo-card__container-item `}
       style={{
         top: `${top * props.i}rem`,
         transform: `rotate(${randomNums[props.i]}deg)`,
       }}
-      onMouseOver={() => setExpand(true)}
-      onMouseOut={() => setExpand(false)}
     >
       <img src={img1} />
     </div>

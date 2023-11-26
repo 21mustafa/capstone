@@ -10,3 +10,17 @@
     width: 100vw;
     // margin: 4rem 0;
 }
+
+$tablet-width: 768px;
+$desktop-width: 1280px;
+@mixin tablet {
+    @media screen and (min-width: $tablet-width) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: $desktop-width) {
+        @content;
+    }
+}

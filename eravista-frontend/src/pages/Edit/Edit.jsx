@@ -1,11 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TimelineContext } from "../../context/TimelineContext";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Edit.scss";
 import TextareaAutosize from "react-textarea-autosize";
 import axios from "axios";
+import { useDropzone } from "react-dropzone";
+
+function PhotoUploader(props) {
+  const onDrop = useCallback((acceptedFiles) => {
+    void saveFiles(acceptedFiles);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const saveFiles = async (acceptedFiles) => {
+    props.setPhotos(acceptedFiles);
+  };
+
+  return (
+    <div {...getRootProps()} className="uploader">
+      <input {...getInputProps()} />
+      <span>
+        Drop your images here or click here to select from your computer{" "}
+      </span>
+      <img src={props.src} />
+    </div>
+  );
+}
 
 function Edit() {
   const params = useParams();
@@ -15,10 +35,10 @@ function Edit() {
 
   const [description, setDescription] = useState("");
   const [notes, setNotes] = useState("");
-  // const [videoURL, setVideoURL] = useState("");
   const [refList, setRefList] = useState([]);
 
   const [reference, setReference] = useState({});
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
     document.body.style.overflow = "scroll";
@@ -48,8 +68,9 @@ function Edit() {
       );
       setDescription(data.eventData.description);
       setRefList(data.eventData.refs);
-      // setVideoURL(data.eventData.videoURL);
       setNotes(data.eventData.notes);
+      setPhotos(data.eventData.images);
+      // TODO delete this
       setEvent({
         ...data.eventData,
         refs,
@@ -59,6 +80,51 @@ function Edit() {
       setReference({});
     }
   }, [timeline]);
+
+  const getData = (overrideImages) => {
+    for (let centuries of timeline) {
+      for (let centuryEvents of centuries.events) {
+        for (let eventData of centuryEvents.events) {
+          if (params.id === eventData._id) {
+            eventData.notes = notes;
+            eventData.description = description;
+            eventData.refs = refList;
+            eventData.images = overrideImages ? overrideImages : photos;
+
+            delete centuries["__v"];
+            return centuries;
+          }
+        }
+      }
+    }
+  };
+
+  const saveImages = async (acceptedFiles) => {
+    const formData = new FormData();
+
+    for (let file of acceptedFiles) {
+      formData.append("photos", file);
+    }
+
+    const response = await axios.post("/image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    const { data: filenames } = response;
+    const data = getData([...photos, ...filenames]);
+    await axios.put("/", data);
+    setPhotos((prevPhotos) => [...prevPhotos, ...filenames]);
+  };
+
+  const deleteImage = async (fileName) => {
+    await axios.delete(`/image?fileName=${fileName}`);
+    const filteredImages = [...photos].filter((photo) => photo !== fileName);
+    const data = getData(filteredImages);
+    await axios.put("/", data);
+    setPhotos(filteredImages);
+  };
 
   return event ? (
     <div className="edit">
@@ -70,15 +136,7 @@ function Edit() {
         <span className="edit__header-year">{event.year}</span>
       </h1>
 
-      <TextareaAutosize
-        autoFocus
-        className="edit__short-description"
-        onChange={(event) => {
-          const val = event.target.value;
-          setDescription(val);
-        }}
-        value={description}
-      />
+      <div className="edit__short-description">{description}</div>
 
       <div>
         <div className="edit__label">Notes</div>
@@ -95,31 +153,33 @@ function Edit() {
         />
       </div>
 
-      {/* <div className="edit__video">
-        <label>
-          <span className="edit__label">Video</span>
+      <div className="edit_image">
+        <div className="edit__label">Images</div>
 
-          <input
-            autoFocus
-            className="edit__video-url"
-            onChange={(event) => {
-              const val = event.target.value;
-              setVideoURL(val);
+        <div className="edit__image-upload">
+          <PhotoUploader
+            setPhotos={(images) => {
+              saveImages(images);
             }}
-            value={videoURL}
-            placeholder={"Enter a video URL"}
           />
-        </label>
-        {videoURL && (
-          <iframe
-            src={videoURL}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        )}
-      </div> */}
+          <div className="edit__image-list-container">
+            {photos &&
+              photos.map((image) => {
+                return (
+                  <div className="edit__image-item">
+                    <img
+                      src={`http://127.0.0.1:8000/uploads/${image}`}
+                      alt=""
+                    />
+                    <button onClick={() => deleteImage(image)}>
+                      <i class="fa-solid fa-x"></i>
+                    </button>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      </div>
 
       <div className="edit__ref">
         <div className="edit__label">References</div>
@@ -129,9 +189,11 @@ function Edit() {
               <div className="edit__ref-item-content">
                 <a
                   href={
-                    ref.link.includes("/wiki/")
-                      ? `https://en.wikipedia.org/${ref.link}`
-                      : ref.link
+                    ref.link
+                      ? ref.link.includes("/wiki/")
+                        ? `https://en.wikipedia.org/${ref.link}`
+                        : ref.link
+                      : undefined
                   }
                 >
                   {ref.name}
@@ -193,22 +255,6 @@ function Edit() {
         <button
           className="edit__action-button--main"
           onClick={async () => {
-            const getData = () => {
-              for (let centuries of timeline) {
-                for (let centuryEvents of centuries.events) {
-                  for (let eventData of centuryEvents.events) {
-                    if (params.id === eventData._id) {
-                      eventData.notes = notes;
-                      eventData.description = description;
-                      eventData.refs = refList;
-                      // eventData.videoURL = videoURL;
-                      return centuries;
-                    }
-                  }
-                }
-              }
-            };
-
             const data = getData();
             await axios.put("/", data);
             navigate("/");

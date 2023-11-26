@@ -11,7 +11,7 @@ const timelineSchema = new mongoose.Schema({
         {
           date: String,
           description: String,
-          videoURL: String,
+          images: [String],
           notes: String,
           index: Number,
           refs: [

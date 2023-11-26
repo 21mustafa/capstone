@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as *;
+
 .photo-card {
     height: fit-content;
     transition: transform 0.25s, min-height 0.5s;
@@ -13,6 +15,10 @@
             &-item {
                 top: 0 !important;
                 transform: rotate(0deg) !important;
+
+                img {
+                    width: 50rem;
+                }
             }
         }
     }
@@ -23,9 +29,16 @@
 
     &__container {
         position: relative;
-        height: calc(100vh - 14rem);
-        padding: 7rem 2rem;
+        height: calc(100vh - 45rem);
+        padding: 2rem 2rem;
         overflow-y: none;
+        width: 50rem;
+
+        @include desktop {
+            width: 70rem;
+            padding: 7rem 2rem;
+            height: calc(100vh - 14rem);
+        }
 
         &-item {
             overflow: hidden;
@@ -37,13 +50,11 @@
             img {
                 width: 25rem;
                 transition: width 0.2s;
-                float: right;
+                float: left;
                 border-radius: 10px;
-            }
 
-            &.expand-image {
-                img {
-                    width: 70rem;
+                @include desktop {
+                    float: right;
                 }
             }
         }

@@ -7,8 +7,18 @@ import { useNavigate } from "react-router-dom";
 function Card(props) {
   const navigate = useNavigate();
 
-  const refs = props.currentEvent?.refs?.filter(
-    (ref) => ref.link && !ref.link.includes("#cite_ref")
+  const refs = props.currentEvent?.refs?.map((ref) =>
+    ref
+      ? ref.link && ref.link.includes("#cite_ref")
+        ? {
+            ...ref,
+            link: undefined,
+          }
+        : ref
+      : {
+          ...ref,
+          link: undefined,
+        }
   );
 
   const year = props.currentEvent?.year;
@@ -39,9 +49,11 @@ function Card(props) {
                     <li>
                       <a
                         href={
-                          ref.link.includes("/wiki/")
-                            ? `https://en.wikipedia.org/${ref.link}`
-                            : ref.link
+                          ref.link
+                            ? ref.link.includes("/wiki/")
+                              ? `https://en.wikipedia.org/${ref.link}`
+                              : ref.link
+                            : undefined
                         }
                         target="_blank"
                       >
