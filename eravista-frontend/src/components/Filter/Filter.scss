@@ -1,8 +1,9 @@
+@use "../../styles/mixins" as *;
+
 .filter {
-    display: flex;
     background-color: #383838;
     color: white;
-    padding: 2rem 2rem 2rem 2rem;
+    padding: 2rem;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     transform: translateY(-70rem);
     transition: transform 0.2s;
@@ -10,6 +11,20 @@
     position: relative;
     &.filter--open {
         transform: translateY(0);
+    }
+
+    &--desktop {
+        display: none;
+        @include desktop {
+            display: flex;
+        }
+    }
+
+    &--mobile {
+        display: block;
+        @include desktop {
+            display: none;
+        }
     }
 
     &__section {
@@ -50,6 +65,28 @@
             flex-direction: column;
             flex-wrap: wrap;
             max-height: calc(100vh - 50rem);
+        }
+    }
+
+    &__select {
+        &:not(:last-of-type) {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        span {
+            font-size: 1.5rem;
+            color: #cbcbcb;
+            margin-right: 1rem;
+        }
+
+        select {
+            padding: 0.5rem;
+            border-radius: 10px;
         }
     }
 }
