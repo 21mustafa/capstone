@@ -143,7 +143,7 @@ function Filter(props) {
       </div>
       <div className="filter--mobile">
         <div className="filter__select">
-          <label for="century-select">
+          <label for="century-select" className="filter__select-label">
             <span>Select a century</span>
             <select
               name="century"
