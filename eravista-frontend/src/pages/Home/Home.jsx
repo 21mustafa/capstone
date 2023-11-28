@@ -5,12 +5,81 @@ import Slider from "react-input-slider";
 import PhotoCard from "../../components/PhotoCard/PhotoCard";
 import { TimelineContext } from "../../context/TimelineContext";
 import Filter from "../../components/Filter/Filter";
+import { pathLength, startingPoint } from "../../helpers/constants";
 
 function Home(props) {
   const display = props.displayCard && !!props.currentEvent;
   const [showImages, setShowImages] = useState(false);
   const timeline = useContext(TimelineContext);
   const [showFilter, setShowFilter] = useState(false);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
+
+  const getYearPointsOnSlide = (position) => {
+    const max1 = startingPoint + 250;
+    const min1 = pathLength;
+
+    return width - ((position - min1) / (max1 - min1)) * width;
+  };
+
+  const getYearIndicator = () => {
+    let currYear;
+    const result = [];
+    const interval = Math.floor(width / 50);
+    let firstYear = true;
+    let count = Math.floor(props.timelinePositions.length / interval);
+
+    for (let i = 0; i < props.timelinePositions.length; i++) {
+      let timelinePosition = props.timelinePositions[i];
+      let isSelected = props.currentEvent?._id === timelinePosition?._id;
+
+      let includeYear = !timelinePosition.year.includes("?");
+      result.push(
+        <div
+          style={{
+            backgroundColor: isSelected ? "#bb0000" : "#aaaaaa",
+            position: "absolute",
+            width: "4px",
+            height: "4px",
+            borderRadius: "50%",
+            left: getYearPointsOnSlide(timelinePosition.position) + "px",
+          }}
+        >
+          <span
+            style={{
+              color: "#ffffff91",
+              fontSize: "1.5rem",
+              fontWeight: 900,
+              display: "block",
+              marginTop: "0.5rem",
+            }}
+          >
+            {(currYear !== timelinePosition.year &&
+              count === 0 &&
+              includeYear) ||
+            firstYear
+              ? timelinePosition.year
+              : ""}
+          </span>
+        </div>
+      );
+      firstYear = false;
+      if (includeYear) {
+        currYear !== timelinePosition.year && count--;
+        if (count < 0) {
+          count = Math.floor(props.timelinePositions.length / interval);
+        }
+        currYear = timelinePosition.year;
+      }
+    }
+    return result;
+  };
 
   return (
     <div className={showImages ? "home disable" : "home"}>
@@ -46,6 +115,7 @@ function Home(props) {
       </div>
 
       <div className="home__slider">
+        <div className="home__slider-bg">{getYearIndicator()}</div>
         <Slider
           styles={{
             track: {
@@ -61,7 +131,7 @@ function Home(props) {
               height: "6rem",
               width: "2rem",
               borderRadius: 5,
-              backgroundColor: "#39ff15",
+              backgroundColor: "#ffffffab",
             },
           }}
           axis="x"

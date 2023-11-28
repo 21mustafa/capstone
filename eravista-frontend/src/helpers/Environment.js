@@ -113,9 +113,15 @@ export class Environment {
   };
 
   createWalls = () => {
+    const floorMaterial = new THREE.MeshBasicMaterial({
+      color: "#333333",
+      opacity: 0.5,
+      transparent: true,
+    });
+
     this.planeBottom = new THREE.Mesh(
       new THREE.PlaneGeometry(100, pathLength),
-      new THREE.MeshBasicMaterial({ color: "#383838" })
+      floorMaterial
     );
     this.planeBottom.position.y = -30;
     this.planeBottom.position.z = pathLength * 1.5;

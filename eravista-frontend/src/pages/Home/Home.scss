@@ -17,6 +17,14 @@
         width: 100vw;
         height: 7rem;
         background-color: #383838;
+
+        &-bg {
+            position: absolute;
+            width: 100vw;
+            background-color: transparent;
+            height: 100%;
+            top: 0;
+        }
     }
 
     &__card {

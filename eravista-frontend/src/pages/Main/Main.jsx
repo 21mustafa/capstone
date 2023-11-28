@@ -205,6 +205,7 @@ function Main() {
         }}
         onDragEnd={() => setIsLoading(false)}
         goToEvent={onSearchChange}
+        timelinePositions={timelinePositions}
       />
     </>
   );
