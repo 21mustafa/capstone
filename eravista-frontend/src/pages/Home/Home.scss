@@ -115,4 +115,28 @@
             }
         }
     }
+
+    &__navigate {
+        position: absolute;
+        bottom: 8rem;
+        left: 1rem;
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: 2px;
+            width: 3rem;
+            height: 3rem;
+            margin-right: 0.25rem;
+            font-size: 2rem;
+            background-color: #d9d2c9;
+            color: #333333;
+            transition: all 0.2s;
+
+            &:hover {
+                background-color: #780904;
+                color: #d9d2c9;
+            }
+        }
+    }
 }

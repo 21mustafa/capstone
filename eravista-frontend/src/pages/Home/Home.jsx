@@ -131,6 +131,57 @@ function Home(props) {
         </div>
       </div>
 
+      <div className="home__navigate">
+        <button
+          onClick={() => {
+            const currentID = props.currentEvent
+              ? props.currentEvent._id
+              : null;
+
+            if (props.timelinePositions[0]?._id === currentID || !currentID) {
+              props.goToEvent({
+                id: props.timelinePositions[props.timelinePositions.length - 1]
+                  ._id,
+              });
+            } else {
+              for (let i = 1; i < props.timelinePositions.length; i++) {
+                if (props.currentEvent._id === props.timelinePositions[i]._id) {
+                  props.goToEvent({ id: props.timelinePositions[i - 1]._id });
+                  break;
+                }
+              }
+            }
+          }}
+        >
+          <i class="fa-solid fa-caret-left"></i>
+        </button>
+        <button
+          onClick={() => {
+            const currentID = props.currentEvent
+              ? props.currentEvent._id
+              : null;
+
+            if (
+              !currentID ||
+              props.timelinePositions[props.timelinePositions.length - 1]
+                ?._id === props.currentEvent?._id
+            ) {
+              // first element
+              props.goToEvent({ id: props.timelinePositions[0]._id });
+            } else {
+              for (let i = 0; i < props.timelinePositions.length - 1; i++) {
+                if (props.currentEvent._id === props.timelinePositions[i]._id) {
+                  props.goToEvent({ id: props.timelinePositions[i + 1]._id });
+                  break;
+                }
+              }
+            }
+          }}
+        >
+          <i class="fa-solid fa-caret-right"></i>
+        </button>
+      </div>
+
       <div className="home__slider">
         <div className="home__slider-bg">{getYearIndicator()}</div>
         <Slider
