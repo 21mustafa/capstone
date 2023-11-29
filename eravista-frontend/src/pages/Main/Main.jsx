@@ -36,6 +36,7 @@ function Main() {
   const onScroll = (position) => {
     if (position > labelSpace - 750) {
       setShowCredits(false);
+      setCurrentEvent(null);
       return;
     }
 
