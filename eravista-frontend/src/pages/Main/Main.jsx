@@ -81,10 +81,10 @@ function Main() {
 
   useEffect(() => {
     if (preEventBox.current) {
-      preEventBox.current.material.color = new THREE.Color("#39FF14");
+      preEventBox.current.material.color = new THREE.Color("#d9d2c9");
     }
     if (currentEvent) {
-      boxes.current[currentEvent._id].material.color.setHex(0xffffff);
+      boxes.current[currentEvent._id].material.color.setHex(0x780904);
       preEventBox.current = boxes.current[currentEvent._id];
     }
   }, [currentEvent]);
@@ -107,7 +107,7 @@ function Main() {
   useEffect(() => {
     for (let element of timelinePositions) {
       const geometry = new THREE.BoxGeometry(7, 7, 7);
-      const material = new THREE.MeshBasicMaterial({ color: "#39FF14" });
+      const material = new THREE.MeshBasicMaterial({ color: "#d9d2c9" });
       const cube = new THREE.Mesh(geometry, material);
       cube.position.z = element.position;
       cube.position.y = -25;

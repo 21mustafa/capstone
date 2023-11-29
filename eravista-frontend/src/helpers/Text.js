@@ -14,7 +14,8 @@ export class Text {
     tickness,
     leftAlign,
     leftMargin,
-    height
+    height,
+    isLight
   ) {
     this.text = text;
     this.loadFont();
@@ -30,12 +31,13 @@ export class Text {
     this.leftAlign = leftAlign;
     this.leftMargin = leftMargin;
     this.height = height;
+    this.isLight = isLight;
 
     scene.add(this.group);
   }
 
   createText = () => {
-    const textColor = "#333333";
+    const textColor = this.isLight ? "#d9d2c9" : "#333333";
     this.materials = [
       new THREE.MeshPhongMaterial({ color: textColor, flatShading: true }), // front
       new THREE.MeshPhongMaterial({ color: textColor }), // side

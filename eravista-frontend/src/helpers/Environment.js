@@ -133,7 +133,7 @@ export class Environment {
     // this.createMirror();
 
     const geometry = new THREE.BoxGeometry(0.5, 0.5, pathLength - 2500);
-    const material = new THREE.MeshBasicMaterial({ color: "#dbd1c4" });
+    const material = new THREE.MeshBasicMaterial({ color: "#d9d2c9" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
     this.cube.position.z = startingPoint;
