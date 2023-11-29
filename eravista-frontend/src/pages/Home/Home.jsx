@@ -114,6 +114,23 @@ function Home(props) {
         </div>
       </div>
 
+      <div className={`home__credit ${props.showCredits ? "" : "hide-credit"}`}>
+        <div className="home__credit-label">Created by</div>
+        <div className="home__credit-value">Mostafa Asghari Dilmani</div>
+        <div className="home__credit-link">
+          <a href="">
+            <i class="fa-brands fa-linkedin"></i>
+            <span>Linkedin</span>
+          </a>
+        </div>
+        <div className="home__credit-link">
+          <a href="https://github.com/21mustafa">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+
       <div className="home__slider">
         <div className="home__slider-bg">{getYearIndicator()}</div>
         <Slider

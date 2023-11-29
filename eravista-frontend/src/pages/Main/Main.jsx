@@ -31,17 +31,28 @@ function Main() {
   const boxes = useRef({});
   const preEventBox = useRef(null);
   const environment = useRef();
+
+  const [showCredits, setShowCredits] = useState(false);
   const onScroll = (position) => {
     if (position > labelSpace - 750) {
+      setShowCredits(false);
+      return;
+    }
+
+    if (position <= pathLength + 1055) {
+      setCurrentEvent(null);
+      setShowCredits(true);
       return;
     }
 
     for (let i = 0; i < timelinePositions.length; i++) {
       if (i + 1 === timelinePositions.length) {
         setCurrentEvent(timelinePositions[i]);
+        setShowCredits(false);
         break;
       }
 
+      setShowCredits(false);
       if (i === 0) {
         const pointAPosition = labelSpace;
         const pointBPosition = timelinePositions[i].position;
@@ -112,6 +123,7 @@ function Main() {
         timeline,
         (position) => {
           debouncedScrollHandler(position);
+          setShowCredits(false);
           updateSlide(position);
         },
         () => setIsLoading(true)
@@ -206,6 +218,7 @@ function Main() {
         onDragEnd={() => setIsLoading(false)}
         goToEvent={onSearchChange}
         timelinePositions={timelinePositions}
+        showCredits={showCredits}
       />
     </>
   );

@@ -9,6 +9,7 @@ import {
   startingPoint,
   visiualDepth,
 } from "./constants";
+import { Text } from "./Text";
 
 export class Environment {
   constructor(timeline, onScroll, onLoading) {
@@ -120,7 +121,7 @@ export class Environment {
     });
 
     this.planeBottom = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, pathLength),
+      new THREE.PlaneGeometry(100, pathLength - 1500),
       floorMaterial
     );
     this.planeBottom.position.y = -30;
@@ -131,7 +132,7 @@ export class Environment {
     // reflectors/mirrors
     // this.createMirror();
 
-    const geometry = new THREE.BoxGeometry(0.5, 0.5, pathLength - 550);
+    const geometry = new THREE.BoxGeometry(0.5, 0.5, pathLength - 2500);
     const material = new THREE.MeshBasicMaterial({ color: "#dbd1c4" });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.position.y = -25;
@@ -219,9 +220,6 @@ export class Environment {
     targetLerp.target = gsap.utils.clamp(0, 1, targetLerp.target);
     targetLerp.current = gsap.utils.clamp(0, 1, targetLerp.current);
 
-    if (targetLerp.target >= 0.331) {
-      targetLerp = null;
-    }
     return targetLerp;
   };
 
@@ -240,6 +238,7 @@ export class Environment {
     this.bgMesh.position.set(0, 200, startingPoint - 800);
     this.scene.add(this.bgMesh);
   };
+
   moveCameraAlongTheCurve = () => {
     const result = this.calculatePosition({ ...this.lerp });
     if (result) {
