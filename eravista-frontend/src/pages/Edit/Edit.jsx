@@ -138,21 +138,6 @@ function Edit() {
 
       <div className="edit__short-description">{description}</div>
 
-      <div>
-        <div className="edit__label">Notes</div>
-
-        <TextareaAutosize
-          autoFocus
-          className="edit__long-description"
-          onChange={(event) => {
-            const val = event.target.value;
-            setNotes(val);
-          }}
-          value={notes}
-          placeholder={"..."}
-        />
-      </div>
-
       <div className="edit_image">
         <div className="edit__label">Images</div>
 
