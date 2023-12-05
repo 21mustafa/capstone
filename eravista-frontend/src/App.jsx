@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main/Main";
 import Edit from "./pages/Edit/Edit";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://eravista-api.onrender.com";
 
 function App() {
   const [timeline, setTimeline] = useState([]);

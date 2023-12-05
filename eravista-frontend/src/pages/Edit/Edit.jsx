@@ -153,7 +153,7 @@ function Edit() {
                 return (
                   <div className="edit__image-item">
                     <img
-                      src={`http://127.0.0.1:8000/uploads/${image}`}
+                      src={`https://eravista-api.onrender.com/uploads/${image}`}
                       alt="event image"
                     />
                     <button onClick={() => deleteImage(image)}>
