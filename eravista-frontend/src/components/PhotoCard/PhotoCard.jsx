@@ -26,8 +26,6 @@ const ImageItem = (props) => {
 
 const ImageAlbum = (props) => {
   const getImages = () => {
-    const imgs = [];
-
     return props.images.map((image, i) => {
       return <ImageItem i={i} showImages={props.showImages} image={image} />;
     });
