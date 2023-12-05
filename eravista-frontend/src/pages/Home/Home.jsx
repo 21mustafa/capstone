@@ -118,7 +118,7 @@ function Home(props) {
         <div className="home__credit-label">Created by</div>
         <div className="home__credit-value">Mostafa Asghari Dilmani</div>
         <div className="home__credit-link">
-          <a href="">
+          <a href="www.linkedin.com/in/mostafa-asghari">
             <i class="fa-brands fa-linkedin"></i>
             <span>Linkedin</span>
           </a>

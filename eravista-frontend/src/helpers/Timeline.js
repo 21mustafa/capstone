@@ -1,4 +1,4 @@
-import { labelSpace, timelinePositions } from "./constants";
+import { labelSpace } from "./constants";
 import { Text } from "./Text";
 import * as THREE from "three";
 

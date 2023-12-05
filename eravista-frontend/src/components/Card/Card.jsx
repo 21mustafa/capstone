@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "./Card.scss";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useNavigate } from "react-router-dom";
 
 function Card(props) {
@@ -26,7 +24,7 @@ function Card(props) {
     <div className={`card ${props.display ? "" : "collapse"} `}>
       <button
         className="card__edit"
-        onClick={(e) => {
+        onClick={() => {
           navigate(`/edit/${props.currentEvent._id}`);
         }}
       >
@@ -56,6 +54,7 @@ function Card(props) {
                             : undefined
                         }
                         target="_blank"
+                        rel="noreferrer"
                       >
                         {ref.name}
                       </a>

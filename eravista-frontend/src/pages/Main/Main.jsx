@@ -1,17 +1,9 @@
 import React, { useContext } from "react";
 import { TimelineContext } from "../../context/TimelineContext";
-import { createContext, useCallback, useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import { Environment } from "../../helpers/Environment";
 import { Text } from "../../helpers/Text";
-import {
-  animationEase,
-  getNextTextSpace,
-  labelSpace,
-  nextTextSpace,
-  startingPoint,
-  pathLength,
-} from "../../helpers/constants";
+import { labelSpace, startingPoint, pathLength } from "../../helpers/constants";
 import { Timeline } from "../../helpers/Timeline";
 import debounce from "lodash.debounce";
 import * as THREE from "three";
@@ -98,6 +90,7 @@ function Main() {
     if (currentPosition !== -1) {
       onScroll(currentPosition);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPosition]);
 
   const debouncedScrollHandler = debounce((position) => {
@@ -156,6 +149,7 @@ function Main() {
         55
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeline]);
 
   const onSlide = ({ x }) => {

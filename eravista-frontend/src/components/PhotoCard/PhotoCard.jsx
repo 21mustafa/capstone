@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "./PhotoCard.scss";
 
 const top = -16;
@@ -31,8 +31,6 @@ const ImageAlbum = (props) => {
     return props.images.map((image, i) => {
       return <ImageItem i={i} showImages={props.showImages} image={image} />;
     });
-
-    return imgs;
   };
 
   return <>{getImages()}</>;

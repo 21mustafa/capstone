@@ -9,7 +9,6 @@ import {
   startingPoint,
   visiualDepth,
 } from "./constants";
-import { Text } from "./Text";
 
 export class Environment {
   constructor(timeline, onScroll, onLoading) {

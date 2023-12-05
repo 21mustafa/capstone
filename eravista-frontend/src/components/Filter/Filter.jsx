@@ -53,12 +53,14 @@ function Filter(props) {
       const date = props.timeline[0]?.events[0]?.events[0];
       setEventFilter({ id: date._id, value: date.date });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.timeline, props.open]);
 
   useEffect(() => {
     if (eventFilter && props.open) {
       props.goToEvent(eventFilter);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventFilter, props.open]);
 
   return (

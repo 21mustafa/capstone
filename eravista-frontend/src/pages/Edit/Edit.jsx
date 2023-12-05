@@ -2,15 +2,15 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TimelineContext } from "../../context/TimelineContext";
 import "./Edit.scss";
-import TextareaAutosize from "react-textarea-autosize";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 
 function PhotoUploader(props) {
   const onDrop = useCallback((acceptedFiles) => {
     void saveFiles(acceptedFiles);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const saveFiles = async (acceptedFiles) => {
     props.setPhotos(acceptedFiles);
@@ -22,7 +22,7 @@ function PhotoUploader(props) {
       <span>
         Drop your images here or click here to select from your computer{" "}
       </span>
-      <img src={props.src} />
+      <img src={props.src} alt="event" />
     </div>
   );
 }
@@ -79,6 +79,7 @@ function Edit() {
       });
       setReference({});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeline]);
 
   const getData = (overrideImages) => {
@@ -154,7 +155,7 @@ function Edit() {
                   <div className="edit__image-item">
                     <img
                       src={`https://eravista-api.onrender.com/uploads/${image}`}
-                      alt="event image"
+                      alt="event"
                     />
                     <button onClick={() => deleteImage(image)}>
                       <i class="fa-solid fa-x"></i>
