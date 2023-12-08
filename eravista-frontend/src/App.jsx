@@ -20,7 +20,9 @@ function App() {
     setLoading(true);
     const response = await axios.get();
     setTimeline(response.data);
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   return (
